@@ -1,18 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
+// import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+
+import { SafeAreaView } from 'react-native';
+
+import './src/i18n';
+import { theme } from './src/ui/style/theme';
+// import { store } from './src/store';
+import { Tree } from './src/tree/tree.navigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Git config test!</Text>
-    </View>
+    // <Provider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer theme={theme}>
+        <StatusBar />
+        <Tree />
+      </NavigationContainer>
+    </SafeAreaView>
+    // </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
