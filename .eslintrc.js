@@ -5,7 +5,7 @@ module.exports = {
     ecmaVersion: 2019,
     ecmaFeatures: { impliedStrict: true, jsx: true },
   },
-  env: { es6: true, jest: true, browser: true },
+  env: { es6: true, browser: true },
   globals: {
     console: false,
     exports: false,
