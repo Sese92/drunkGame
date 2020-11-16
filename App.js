@@ -4,7 +4,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 
 import './src/i18n';
 import { theme } from './src/ui/style/theme';
@@ -14,12 +14,12 @@ import { Tree } from './src/tree/tree.navigation';
 export default function App() {
   return (
     // <Provider>
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <NavigationContainer theme={theme}>
-        <StatusBar />
+        <StatusBar translucent={true} />
         <Tree />
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
     // </Provider>
   );
 }

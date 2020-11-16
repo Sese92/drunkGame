@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View, Text } from 'react-native';
 
-// import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { Button } from '../ui/atoms/Button';
 
@@ -10,17 +10,45 @@ import { flex } from '../ui/style/layout';
 import { margins, paddings } from '../ui/style/spacing';
 
 export const Main = () => {
-  // const { colors } = useTheme();
+  const { colors } = useTheme();
+  const navigation = useNavigation();
 
   return (
-    <View style={[flex.centerContent, paddings.p5]}>
-      <Text style={{ fontSize: 30 }}>Welcome to the drunk game!</Text>
+    <View
+      style={[
+        flex.centerContent,
+        paddings.p5,
+        { backgroundColor: colors.primary },
+      ]}>
+      <Text style={{ fontSize: 40, color: colors.white, fontWeight: 'bold' }}>
+        Let´s get drunk!
+      </Text>
+      <Text style={[margins.mt4, { fontSize: 20, color: colors.white }]}>
+        How do you want to do it?
+      </Text>
       <View style={[margins.mt8]}>
-        <Button>
-          <Text style={{ textAlign: 'center' }}>Jota</Text>
+        <Button
+          onPress={() => navigation.navigate('GameConfig', { game: 'Jota' })}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: 20,
+            }}>
+            Jota
+          </Text>
         </Button>
-        <Button style={[margins.mt8]}>
-          <Text>Autobús</Text>
+        <Button
+          style={[margins.mt8]}
+          onPress={() => navigation.navigate('GameConfig', { game: 'jota' })}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: 20,
+            }}>
+            Autobús
+          </Text>
         </Button>
       </View>
     </View>

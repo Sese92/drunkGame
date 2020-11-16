@@ -1,5 +1,11 @@
 export const colors = {
-  primary: '#184082', // rgb(24, 64, 130)
-  secondary: '#8C8C8C',
-  info: '#131E39', // rgb(19, 30, 57)
+  primary: '#023047',
+  secondary: '#219EBC',
+  tertiary: '#8ECAE6',
+  info: '#FFB703',
+  warning: '#FB8500',
+  white: '#FFFFFF',
+  black: '#000000',
 };
+
+// https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500

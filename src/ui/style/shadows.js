@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const black = '#000';
-const blue = '#184082';
+const info = '#FFB703';
 
 export const shadows = StyleSheet.create({
   L0: {
@@ -33,13 +33,13 @@ export const shadows = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 7,
   },
-  L1Blue: {
-    shadowColor: blue,
+  L1Info: {
+    shadowColor: info,
     shadowOffset: {
       width: 0,
       height: 0,
     },
-    shadowOpacity: 0.12,
+    shadowOpacity: 0.0,
     shadowRadius: 10,
     elevation: 1,
   },
