@@ -44,7 +44,7 @@ export const GameConfig = () => {
 
       <View style={[margins.mx6]}>
         <Text style={{ textAlign: 'center', fontSize: 26, fontWeight: 'bold' }}>
-          Game configuration
+          {game}
         </Text>
 
         <View style={[margins.mt8]}>
@@ -123,7 +123,12 @@ export const GameConfig = () => {
 
       <FloatingBar>
         <View style={[margins.mx4]}>
-          <Button>
+          <Button
+            onPress={() =>
+              game === 'Jota'
+                ? navigation.navigate('Jota')
+                : navigation.navigate('Bus')
+            }>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Play now!</Text>
           </Button>
         </View>

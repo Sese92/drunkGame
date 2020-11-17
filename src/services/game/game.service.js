@@ -2,6 +2,7 @@ export const SELECT_GAME = 'SELECT_GAME';
 export const SET_NUMBER_PLAYERS = 'SET_NUMBER_PLAYERS';
 export const SET_NUMBER_JOKERS = 'SET_NUMBER_JOKERS';
 export const SET_NUMBER_ROWS = 'SET_NUMBER_ROWS';
+export const SET_TURN = 'SET_TURN';
 
 export const selectGame = ({ game }) => ({
   type: SELECT_GAME,
@@ -28,5 +29,12 @@ export const setNumberOfRows = ({ rows }) => ({
   type: SET_NUMBER_ROWS,
   meta: {
     rows,
+  },
+});
+
+export const setTurn = ({ turn }) => ({
+  type: SET_TURN,
+  meta: {
+    turn,
   },
 });
