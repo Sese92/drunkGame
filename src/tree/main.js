@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { View, Text } from 'react-native';
 
 import { useNavigation, useTheme } from '@react-navigation/native';
+
+import { selectGame } from '../services/game/game.service';
 
 import { Button } from '../ui/atoms/Button';
 
@@ -12,6 +15,7 @@ import { margins, paddings } from '../ui/style/spacing';
 export const Main = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -28,7 +32,10 @@ export const Main = () => {
       </Text>
       <View style={[margins.mt8]}>
         <Button
-          onPress={() => navigation.navigate('GameConfig', { game: 'Jota' })}>
+          onPress={() => {
+            dispatch(selectGame({ game: 'Jota' }));
+            navigation.navigate('GameConfig', { game: 'Jota' });
+          }}>
           <Text
             style={{
               textAlign: 'center',
@@ -40,7 +47,10 @@ export const Main = () => {
         </Button>
         <Button
           style={[margins.mt8]}
-          onPress={() => navigation.navigate('GameConfig', { game: 'jota' })}>
+          onPress={() => {
+            dispatch(selectGame({ game: 'Bus' }));
+            navigation.navigate('GameConfig', { game: 'Bus' });
+          }}>
           <Text
             style={{
               textAlign: 'center',

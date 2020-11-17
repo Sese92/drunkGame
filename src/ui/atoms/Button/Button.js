@@ -16,6 +16,7 @@ export const Button = ({
   underlayColor,
   LeftElement,
   RightElement,
+  bgColor,
   shadow = shadows.L1Info,
 }) => {
   const { colors } = useTheme();
@@ -23,16 +24,15 @@ export const Button = ({
   return (
     <TouchableHighlight
       activeOpacity={0.85}
-      underlayColor={underlayColor}
+      underlayColor={underlayColor || 'none'}
       onPress={() => !disabled && onPress && onPress()}
       style={[border.rounded, StyleSheet.flatten(style)]}>
       <View
         style={[
           {
-            backgroundColor: colors.info,
+            backgroundColor: bgColor || colors.info,
             alignItems: 'center',
           },
-          // border.rounded,
           paddings.px6,
           paddings.py3,
           shadow,

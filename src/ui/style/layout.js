@@ -111,7 +111,7 @@ export const position = StyleSheet.create({
     bottom: 0,
   },
   bottom: {
-    bottom: 0,
+    bottom: 40,
     left: 0,
     right: 0,
   },
