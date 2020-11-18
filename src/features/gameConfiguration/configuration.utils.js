@@ -14,6 +14,20 @@ export function setJokers(number) {
   return { type: 'Joker', cards: jokers };
 }
 
+export function selectRandomCard(cards) {
+  let type = cards[Math.floor(Math.random() * cards.length)];
+  let number = type.cards[Math.floor(Math.random() * type.cards.length)];
+  let card = { type: type.type, number };
+  return card;
+}
+
+export function removeCard(cards, card) {
+  console.log(cards);
+  console.log(card);
+
+  return cards;
+}
+
 export const dice = [
   { number: 1, color: 'red', rule: 'New rule!' },
   { number: 7, color: 'black', rule: 'The one on the left drink!' },

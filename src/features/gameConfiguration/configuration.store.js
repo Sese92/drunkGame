@@ -7,9 +7,17 @@ import {
   SET_NUMBER_ROWS,
   SET_TURN,
   SET_NUMBER_JOKERS,
+  REMOVE_CARD,
 } from '../../services/game/game.service';
 
-import { setPlayers, setJokers, dice, cards } from './configuration.utils';
+import {
+  setPlayers,
+  setJokers,
+  selectRandomCard,
+  removeCard,
+  dice,
+  cards,
+} from './configuration.utils';
 
 export const initialState = {
   game: '',
@@ -60,6 +68,12 @@ const configurationSlice = createSlice({
         turn: action.meta.turn,
       };
     },
+    [REMOVE_CARD]: (state, action) => {
+      return {
+        ...state,
+        cards: removeCard(state.cards.slice(), action.meta.card),
+      };
+    },
   },
 });
 
@@ -98,6 +112,10 @@ const selectNumberOfRows = createSelector(
   (configuration) => configuration.rows
 );
 
+const selectCard = createSelector(selectRoot, (configuration) =>
+  selectRandomCard(configuration.cards)
+);
+
 export {
   selectGame,
   selectNumberOfJokers,
@@ -105,6 +123,7 @@ export {
   selectRandomDice,
   selectTurn,
   selectPlayers,
+  selectCard,
 };
 
 export const { actions, reducer } = configurationSlice;

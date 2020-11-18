@@ -29,7 +29,9 @@ export const GameConfig = () => {
     dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
     if (game === 'Bus') {
       dispatch(setNumberOfRows({ rows: rows }));
-      dispatch(setNumberOfJokers({ jokers: jokers }));
+      if (jokers > 0) {
+        dispatch(setNumberOfJokers({ jokers: jokers }));
+      }
       navigation.navigate('Bus');
     } else {
       navigation.navigate('Jota');
