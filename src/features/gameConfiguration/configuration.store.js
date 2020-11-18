@@ -70,16 +70,24 @@ const selectGame = createSelector(
   (configuration) => configuration.game
 );
 
-const selectNumberOfPlayers = createSelector(
-  selectRoot,
-  (configuration) => configuration.numberOfPlayers
-);
-
 const selectPlayers = createSelector(
   selectRoot,
   (configuration) => configuration.players
 );
 
+const selectTurn = createSelector(
+  selectRoot,
+  (configuration) => configuration.turn
+);
+
+// Jota
+const selectRandomDice = createSelector(
+  selectRoot,
+  (configuration) =>
+    configuration.dice[Math.floor(Math.random() * configuration.dice.length)]
+);
+
+// Bus
 const selectNumberOfJokers = createSelector(
   selectRoot,
   (configuration) => configuration.jokers
@@ -90,20 +98,8 @@ const selectNumberOfRows = createSelector(
   (configuration) => configuration.rows
 );
 
-const selectRandomDice = createSelector(
-  selectRoot,
-  (configuration) =>
-    configuration.dice[Math.floor(Math.random() * configuration.dice.length)]
-);
-
-const selectTurn = createSelector(
-  selectRoot,
-  (configuration) => configuration.turn
-);
-
 export {
   selectGame,
-  selectNumberOfPlayers,
   selectNumberOfJokers,
   selectNumberOfRows,
   selectRandomDice,
