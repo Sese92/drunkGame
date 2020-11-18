@@ -1,14 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import {
-  selectGame,
-  selectNumberOfPlayers,
-  selectNumberOfJokers,
-  selectNumberOfRows,
-} from '../../features/gameConfiguration/configuration.store';
+import { selectGame } from '../../features/gameConfiguration/configuration.store';
 import {
   setNumberOfPlayers,
   setNumberOfJokers,
@@ -23,16 +18,33 @@ import { IconArrow } from '../../ui/zicons/Arrow';
 
 export const GameConfig = () => {
   const game = useSelector(selectGame);
-  const numberOfPlayers = useSelector(selectNumberOfPlayers);
-  const numberOfJokers = useSelector(selectNumberOfJokers);
-  const numberOfRows = useSelector(selectNumberOfRows);
-
+  const [players, savePlayers] = useState(1);
+  const [rows, saveRows] = useState(1);
+  const [jokers, saveJokers] = useState(0);
   const { colors } = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  function nextScreen() {
+    dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
+    if (game === 'Bus') {
+      dispatch(setNumberOfRows({ rows: rows }));
+      dispatch(setNumberOfJokers({ jokers: jokers }));
+      navigation.navigate('Bus');
+    } else {
+      navigation.navigate('Jota');
+    }
+  }
+
   return (
-    <SafeAreaView style={[flex.on, { backgroundColor: colors.secondary }]}>
+    <SafeAreaView
+      style={[
+        flex.on,
+        {
+          backgroundColor: colors.secondary,
+          paddingTop: Platform.OS === 'android' ? 20 : 0,
+        },
+      ]}>
       <View style={{ flexDirection: 'row' }}>
         <Button
           onPress={() => navigation.navigate('Main')}
@@ -58,17 +70,9 @@ export const GameConfig = () => {
 
           <View style={{ alignSelf: 'center' }}>
             <QuantityButtons
-              value={numberOfPlayers.toString()}
-              addQuantity={() =>
-                dispatch(
-                  setNumberOfPlayers({ numberOfPlayers: numberOfPlayers + 1 })
-                )
-              }
-              subQuantity={() =>
-                dispatch(
-                  setNumberOfPlayers({ numberOfPlayers: numberOfPlayers - 1 })
-                )
-              }
+              value={players.toString()}
+              addQuantity={() => savePlayers(players + 1)}
+              subQuantity={() => savePlayers(players - 1)}
             />
           </View>
         </View>
@@ -87,13 +91,9 @@ export const GameConfig = () => {
             <View style={{ alignSelf: 'center' }}>
               <QuantityButtons
                 min={0}
-                addQuantity={() =>
-                  dispatch(setNumberOfJokers({ jokers: numberOfJokers + 1 }))
-                }
-                subQuantity={() =>
-                  dispatch(setNumberOfJokers({ jokers: numberOfJokers - 1 }))
-                }
-                value={numberOfJokers.toString()}
+                addQuantity={() => saveJokers(jokers + 1)}
+                subQuantity={() => saveJokers(jokers - 1)}
+                value={jokers.toString()}
               />
             </View>
           </View>
@@ -108,13 +108,9 @@ export const GameConfig = () => {
 
             <View style={{ alignSelf: 'center' }}>
               <QuantityButtons
-                addQuantity={() =>
-                  dispatch(setNumberOfRows({ rows: numberOfRows + 1 }))
-                }
-                subQuantity={() =>
-                  dispatch(setNumberOfRows({ rows: numberOfRows - 1 }))
-                }
-                value={numberOfRows.toString()}
+                addQuantity={() => saveRows(rows + 1)}
+                subQuantity={() => saveRows(rows - 1)}
+                value={rows.toString()}
               />
             </View>
           </View>
@@ -123,12 +119,7 @@ export const GameConfig = () => {
 
       <FloatingBar>
         <View style={[margins.mx4]}>
-          <Button
-            onPress={() =>
-              game === 'Jota'
-                ? navigation.navigate('Jota')
-                : navigation.navigate('Bus')
-            }>
+          <Button onPress={() => nextScreen()}>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Play now!</Text>
           </Button>
         </View>

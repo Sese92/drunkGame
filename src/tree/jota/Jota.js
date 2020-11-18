@@ -1,6 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 import { setTurn } from '../../services/game/game.service';
@@ -22,6 +27,7 @@ export const Jota = () => {
   const players = useSelector(selectPlayers);
   const turn = useSelector(selectTurn);
   const dice = useSelector(selectRandomDice);
+  const [resultsScreen, saveResultsScreen] = useState(false);
 
   useEffect(() => {
     dispatch(setTurn({ turn: 0 }));
@@ -37,22 +43,36 @@ export const Jota = () => {
 
   return (
     <SafeAreaView style={[flex.on, { backgroundColor: colors.tertiary }]}>
-      <View style={[flex.centerContent]}>
-        <Dice dice={dice} />
-        <Text style={[margins.mt5, { fontSize: 20 }]}>{dice.rule}</Text>
-      </View>
-      <View style={[margins.mx4]}>
-        <Text
-          style={[
-            margins.mb4,
-            { textAlign: 'center', fontWeight: 'bold', fontSize: 20 },
-          ]}>
-          {players[turn]}
-        </Text>
-        <Button onPress={() => setNextTurn()}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Roll it!</Text>
-        </Button>
-      </View>
+      {resultsScreen ? (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setNextTurn(), saveResultsScreen(false);
+          }}>
+          <View style={[flex.centerContent]}>
+            <Dice dice={dice} />
+            <Text style={[margins.mt5, { fontSize: 20 }]}>{dice.rule}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      ) : (
+        <View style={[flex.centerContent]}>
+          <Text
+            style={[
+              {
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 60,
+                fontStyle: 'italic',
+              },
+            ]}>
+            {players[turn]}
+          </Text>
+          <View style={[margins.mx4]}>
+            <Button onPress={() => saveResultsScreen(true)}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Roll it!</Text>
+            </Button>
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

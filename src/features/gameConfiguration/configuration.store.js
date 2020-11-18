@@ -4,12 +4,12 @@ import { createSelector } from 'reselect';
 import {
   SELECT_GAME,
   SET_NUMBER_PLAYERS,
-  SET_NUMBER_JOKERS,
   SET_NUMBER_ROWS,
   SET_TURN,
+  SET_NUMBER_JOKERS,
 } from '../../services/game/game.service';
 
-import { setPlayers } from './configuration.utils';
+import { setPlayers, setJokers, dice, cards } from './configuration.utils';
 
 export const initialState = {
   game: '',
@@ -17,18 +17,10 @@ export const initialState = {
   players: [],
   turn: null,
   // Jota
-  dice: [
-    { number: 1, color: 'red', rule: 'New rule!' },
-    { number: 8, color: 'red', rule: 'The one on the left drink!' },
-    { number: 9, color: 'black', rule: 'The one on the right drink!' },
-    { number: 'J', color: 'black', rule: 'All the J drink!' },
-    { number: 'Q', color: 'black', rule: '...' },
-    { number: 'K', color: 'red', rule: 'The ones by your side drink!' },
-  ],
+  dice: dice,
   jotas: [],
   // Bus
-  cards: [],
-  jokers: 0,
+  cards: cards,
   rows: 1,
   hands: [],
 };
@@ -53,7 +45,7 @@ const configurationSlice = createSlice({
     [SET_NUMBER_JOKERS]: (state, action) => {
       return {
         ...state,
-        jokers: action.meta.jokers,
+        cards: [...cards, setJokers(action.meta.jokers)],
       };
     },
     [SET_NUMBER_ROWS]: (state, action) => {
