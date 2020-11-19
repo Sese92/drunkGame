@@ -2,109 +2,26 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
+import { One } from './Numbers/One';
+import { Seven } from './Numbers/Seven';
+import { Eight } from './Numbers/Eight';
+
 export const Dice = ({ dice }) => {
   const { colors } = useTheme();
 
-  const RenderSmallDot = ({ color }) => {
-    return (
-      <View
-        style={{
-          width: 50,
-          height: 50,
-          backgroundColor: color,
-          borderRadius: 100,
-        }}></View>
-    );
-  };
-
-  function RenderNumber(numberOfDots, color) {
-    switch (numberOfDots) {
+  function RenderFace() {
+    switch (dice.number) {
       case 1:
-        return (
-          <View
-            style={{
-              width: 150,
-              height: 150,
-              backgroundColor: color,
-              borderRadius: 100,
-            }}></View>
-        );
+        return <One color={dice.color} />;
       case 7:
-        return (
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 30,
-              width: 300,
-              height: 300,
-            }}>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}>
-              <RenderSmallDot color={color} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-            </View>
-          </View>
-        );
+        return <Seven color={dice.color} />;
       case 8:
+        return <Eight color={dice.color} />;
+      default:
         return (
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 30,
-              width: 300,
-              height: 300,
-            }}>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-            </View>
-            <View
-              style={{
-                paddingTop: 40,
-                paddingBottom: 40,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-              <RenderSmallDot color={color} />
-            </View>
-          </View>
+          <Text style={{ fontSize: 150, color: dice.color }}>
+            {dice.number}
+          </Text>
         );
     }
   }
@@ -122,17 +39,13 @@ export const Dice = ({ dice }) => {
         borderWidth: 6,
         shadowColor: colors.black,
         shadowOffset: {
-          width: 12,
-          height: 12,
+          width: 8,
+          height: 8,
         },
-        shadowOpacity: 0.6,
+        shadowOpacity: 0.4,
         elevation: 12,
       }}>
-      {Number(dice.number) ? (
-        <View>{RenderNumber(dice.number, dice.color)}</View>
-      ) : (
-        <Text style={{ fontSize: 150, color: dice.color }}>{dice.number}</Text>
-      )}
+      {RenderFace()}
     </View>
   );
 };
