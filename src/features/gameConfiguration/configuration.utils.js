@@ -17,7 +17,7 @@ export function setJokers(number) {
 export function selectRandomCard(cards) {
   let type = cards[Math.floor(Math.random() * cards.length)];
   let number = type.cards[Math.floor(Math.random() * type.cards.length)];
-  let card = { type: type.type, number };
+  let card = { type: type.type, number, color: type.color };
   return card;
 }
 
@@ -38,8 +38,24 @@ export const dice = [
 ];
 
 export const cards = [
-  { type: '♥', cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] },
-  { type: '♦', cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] },
-  { type: '♣', cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] },
-  { type: '♠', cards: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] },
+  {
+    type: '♥',
+    color: 'red',
+    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
+  },
+  {
+    type: '♦',
+    color: 'red',
+    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
+  },
+  {
+    type: '♣',
+    color: 'black',
+    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
+  },
+  {
+    type: '♠',
+    color: 'black',
+    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
+  },
 ];

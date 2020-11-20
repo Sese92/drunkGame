@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  // useSelector,
-  useDispatch,
-} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
@@ -10,10 +7,7 @@ import {
   setTurn,
   // removeCard
 } from '../../services/game/game.service';
-import // selectTurn,
-// selectCard,
-// selectPlayers,
-'../../features/gameConfiguration/configuration.store';
+import { selectCard } from '../../features/gameConfiguration/configuration.store';
 // import { Button } from '../../ui/atoms/Button';
 import { Card } from '../../ui/atoms/Card';
 import { flex } from '../../ui/style/layout';
@@ -22,7 +16,7 @@ export const Bus = () => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
 
-  // const card = useSelector(selectCard);
+  const card = useSelector(selectCard);
   // const players = useSelector(selectPlayers);
   // const turn = useSelector(selectTurn);
 
@@ -42,7 +36,7 @@ export const Bus = () => {
   return (
     <SafeAreaView style={[flex.on, { backgroundColor: colors.tertiary }]}>
       <View style={[flex.centerContent]}>
-        <Card card={{ number: 10, color: 'red', type: '♥' }} />
+        <Card card={card} />
         {/* <Text
           style={[
             {

@@ -6,6 +6,19 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import { margins } from '../../style/spacing';
 
+import {
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Seven,
+  Eight,
+  Nine,
+  Ten,
+} from './Numbers';
+
 export const Card = ({ card }) => {
   const { colors } = useTheme();
 
@@ -13,12 +26,27 @@ export const Card = ({ card }) => {
 
   function RenderCard() {
     switch (card.number) {
-      case 1:
-        return;
+      case 'A':
+        return <One card={card} />;
+      case 2:
+        return <Two card={card} />;
+      case 3:
+        return <Three card={card} />;
+      case 4:
+        return <Four card={card} />;
+      case 5:
+        return <Five card={card} />;
+      case 6:
+        return <Six card={card} />;
       case 7:
-        return;
+        return <Seven card={card} />;
       case 8:
-        return;
+        return <Eight card={card} />;
+      case 9:
+        return <Nine card={card} />;
+      case 10:
+        return <Ten card={card} />;
+
       default:
         return (
           <Text style={{ fontSize: 150, color: card.color }}>
