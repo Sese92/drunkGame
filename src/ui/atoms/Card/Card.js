@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 import { View, Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CardFlip from 'react-native-card-flip';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-import { margins } from '../../style/spacing';
+import { margins, paddings } from '../../style/spacing';
 
 import {
   One,
@@ -20,12 +21,24 @@ import {
   Joker,
 } from './Numbers';
 
-export const Card = ({ card }) => {
+export const Card = ({ card, flip, styles }) => {
   const { colors } = useTheme();
 
   var cardDisplay;
 
+  const isFirstRun = useRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    cardDisplay.flip();
+  }, [flip]);
+
   function RenderCard() {
+    if (card.type === 'Joker') {
+      card.number = 'Joker';
+    }
     switch (card.number) {
       case 'A':
         return <One card={card} />;
@@ -51,7 +64,8 @@ export const Card = ({ card }) => {
         return <Joker />;
       default:
         return (
-          <Text style={{ fontSize: 150, color: card.color }}>
+          <Text
+            style={{ fontSize: 180, color: card.color, fontWeight: 'bold' }}>
             {card.number}
           </Text>
         );
@@ -59,103 +73,136 @@ export const Card = ({ card }) => {
   }
 
   return (
-    <View
-      style={{
-        width: '90%',
-        height: '70%',
-      }}>
-      <CardFlip
+    <CardFlip style={styles} ref={(c) => (cardDisplay = c)}>
+      {/* Back Side */}
+      <View
         style={{
-          width: '100%',
-          height: '100%',
-        }}
-        ref={(c) => (cardDisplay = c)}>
-        {/* Front Side */}
-        <TouchableWithoutFeedback onPress={() => cardDisplay.flip()}>
-          <View
-            style={{
-              borderRadius: 10,
-              borderWidth: 4,
-              borderColor: colors.black,
-              padding: 20,
-              backgroundColor: colors.white,
-            }}>
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                width: '100%',
-                height: '100%',
-                borderRadius: 10,
-                justifyContent: 'center',
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 80,
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                  color: colors.info,
-                }}>
-                Bus game
-              </Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-
-        {/* Back Side */}
-
-        <TouchableWithoutFeedback
+          borderRadius: 10,
+          borderWidth: 4,
+          borderColor: colors.black,
+          padding: 20,
+          backgroundColor: colors.white,
+        }}>
+        <View
           style={{
-            backgroundColor: colors.white,
-            borderRadius: 20,
-            borderColor: colors.black,
-            borderWidth: 4,
-          }}
-          onPress={() => cardDisplay.flip()}>
+            backgroundColor: colors.primary,
+            width: '100%',
+            height: '100%',
+            borderRadius: 10,
+            justifyContent: 'center',
+          }}>
           <Text
             style={{
-              position: 'absolute',
-              top: 1,
-              left: 8,
-              fontSize: 30,
+              textAlign: 'center',
+              fontSize: 80,
               fontWeight: 'bold',
-              color: card.color,
+              textTransform: 'uppercase',
+              color: colors.info,
             }}>
-            {card.type !== 'Joker' && card.number}
-            {card.type}
+            Bus game
           </Text>
-          <View style={[margins.m9]}>
-            <View
-              style={[
-                {
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: 20,
-                  borderColor: colors.black,
-                  borderWidth: card.type !== 'Joker' ? 1 : 0,
-                  padding: 10,
-                },
-              ]}>
-              {RenderCard()}
+        </View>
+      </View>
+      {/* Front Side */}
+      <View
+        style={{
+          backgroundColor: colors.white,
+          borderRadius: 20,
+          borderColor: colors.black,
+          borderWidth: 4,
+        }}
+        onPress={() => cardDisplay.flip()}>
+        {card ? (
+          <View>
+            <Text
+              style={{
+                position: 'absolute',
+                top: 1,
+                left: 8,
+                fontSize: RFValue(26),
+                fontWeight: 'bold',
+                color: card.color,
+              }}>
+              {card.type}
+              {card.type !== 'Joker' && card.number}
+            </Text>
+            <View style={[margins.m9]}>
+              <View
+                style={[
+                  {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 20,
+                    borderColor: colors.black,
+                    borderWidth: card.type !== 'Joker' ? 1 : 0,
+                    padding: 10,
+                  },
+                ]}>
+                {RenderCard()}
+              </View>
+            </View>
+
+            <Text
+              style={{
+                position: 'absolute',
+                fontSize: RFValue(26),
+                fontWeight: 'bold',
+                bottom: 1,
+                right: 8,
+                color: card.color,
+              }}>
+              {card.type !== 'Joker' && card.number}
+              {card.type}
+            </Text>
+          </View>
+        ) : (
+          <View style={{ height: '100%', width: '100%' }}>
+            <View style={[margins.m9]}>
+              <View
+                style={[
+                  {
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: 20,
+                    borderColor: colors.black,
+                    borderWidth: 1,
+                    padding: 10,
+                  },
+                ]}></View>
             </View>
           </View>
+        )}
+      </View>
+    </CardFlip>
+  );
+};
 
-          <Text
-            style={{
-              position: 'absolute',
-              fontSize: 30,
-              fontWeight: 'bold',
-              bottom: 1,
-              right: 8,
-              color: card.color,
-            }}>
-            {card.type !== 'Joker' && card.number}
-            {card.type}
-          </Text>
-        </TouchableWithoutFeedback>
-      </CardFlip>
+export const SmallCard = ({ card }) => {
+  const { colors } = useTheme();
+
+  return (
+    <View
+      style={[
+        paddings.px1,
+        paddings.py3,
+        {
+          backgroundColor: colors.white,
+          borderColor: colors.black,
+          borderWidth: 1,
+          borderRadius: 4,
+          width: 45,
+          height: 60,
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      ]}>
+      <Text style={{ color: card.color }}>
+        {card.number} {card.type}
+      </Text>
     </View>
   );
 };

@@ -16,7 +16,7 @@ import {
 } from '../../features/gameConfiguration/configuration.store';
 import { Button } from '../../ui/atoms/Button';
 import { flex } from '../../ui/style/layout';
-import { margins } from '../../ui/style/spacing';
+import { margins, paddings } from '../../ui/style/spacing';
 
 import { Dice } from '../../ui/atoms/Dice';
 
@@ -66,8 +66,17 @@ export const Jota = () => {
             ]}>
             {players[turn]}
           </Text>
-          <View style={[margins.mx4]}>
-            <Button onPress={() => saveResultsScreen(true)}>
+          <View style={[margins.my8]}>
+            <Button
+              style={[
+                paddings.px6,
+                {
+                  borderColor: colors.black,
+                  borderWidth: 2,
+                  borderRadius: 20,
+                },
+              ]}
+              onPress={() => saveResultsScreen(true)}>
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Roll it!</Text>
             </Button>
           </View>

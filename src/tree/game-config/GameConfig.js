@@ -7,7 +7,6 @@ import { selectGame } from '../../features/gameConfiguration/configuration.store
 import {
   setNumberOfPlayers,
   setNumberOfJokers,
-  setNumberOfRows,
 } from '../../services/game/game.service';
 import { flex } from '../../ui/style/layout';
 import { margins } from '../../ui/style/spacing';
@@ -19,7 +18,6 @@ import { IconArrow } from '../../ui/zicons/Arrow';
 export const GameConfig = () => {
   const game = useSelector(selectGame);
   const [players, savePlayers] = useState(1);
-  const [rows, saveRows] = useState(1);
   const [jokers, saveJokers] = useState(0);
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -28,7 +26,6 @@ export const GameConfig = () => {
   function nextScreen() {
     dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
     if (game === 'Bus') {
-      dispatch(setNumberOfRows({ rows: rows }));
       if (jokers > 0) {
         dispatch(setNumberOfJokers({ jokers: jokers }));
       }
@@ -99,30 +96,13 @@ export const GameConfig = () => {
               />
             </View>
           </View>
-          <View style={[margins.mt8]}>
-            <Text
-              style={[
-                margins.mb3,
-                { textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
-              ]}>
-              Number of rows (+1)
-            </Text>
-
-            <View style={{ alignSelf: 'center' }}>
-              <QuantityButtons
-                addQuantity={() => saveRows(rows + 1)}
-                subQuantity={() => saveRows(rows - 1)}
-                value={rows.toString()}
-              />
-            </View>
-          </View>
         </View>
       )}
 
       <FloatingBar>
         <View style={[margins.mx4]}>
           <Button onPress={() => nextScreen()}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Play now!</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Play now!</Text>
           </Button>
         </View>
       </FloatingBar>

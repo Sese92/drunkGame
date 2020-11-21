@@ -39,18 +39,17 @@ export const shadows = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowOpacity: 0.0,
+    shadowOpacity: 0.8,
     shadowRadius: 10,
     elevation: 1,
   },
   L1Black: {
     shadowColor: black,
     shadowOffset: {
-      width: 0,
-      height: 0,
+      width: 2,
+      height: 2,
     },
-    shadowOpacity: 0.12,
-    shadowRadius: 10,
+    shadowOpacity: 0.7,
     elevation: 1,
   },
 });

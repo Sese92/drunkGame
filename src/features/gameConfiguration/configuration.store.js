@@ -15,6 +15,7 @@ import {
   setJokers,
   selectRandomCard,
   removeCard,
+  setHand,
   dice,
   cards,
 } from './configuration.utils';
@@ -23,14 +24,13 @@ export const initialState = {
   game: '',
   numberOfPlayers: 1,
   players: [],
-  turn: null,
+  turn: 0,
   // Jota
   dice: dice,
   jotas: [],
   // Bus
   cards: cards,
   rows: 1,
-  hands: [],
 };
 
 const configurationSlice = createSlice({
@@ -72,6 +72,7 @@ const configurationSlice = createSlice({
       return {
         ...state,
         cards: removeCard(state.cards.slice(), action.meta.card),
+        players: setHand(state.players.slice(), state.turn, action.meta.card),
       };
     },
   },

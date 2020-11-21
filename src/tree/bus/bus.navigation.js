@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { View, Text } from 'react-native';
-
 import { createStackNavigator } from '@react-navigation/stack';
+
+import { BusElection } from './BusElection';
+import { Bus } from './Bus';
+
 // import { useTheme } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
-
-const BusWelcome = () => {
-  return (
-    <View>
-      <Text>Welcome to Bus</Text>
-    </View>
-  );
-};
 
 export function BusTree() {
   // const { colors } = useTheme();
 
   return (
-    <Stack.Navigator initialRouteName="busWelcome">
-      <Stack.Screen name="busWelcome" component={BusWelcome} />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="BusElection">
+      <Stack.Screen name="BusElection" component={BusElection} />
+      <Stack.Screen name="Bus" component={Bus} />
     </Stack.Navigator>
   );
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { RFValue } from 'react-native-responsive-fontsize';
+
 import { View, Text } from 'react-native';
 
 export const Six = ({ card }) => {
@@ -16,8 +18,12 @@ export const Six = ({ card }) => {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
       </View>
       <View
         style={{
@@ -26,8 +32,12 @@ export const Six = ({ card }) => {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
       </View>
       <View
         style={{
@@ -36,8 +46,12 @@ export const Six = ({ card }) => {
           alignItems: 'center',
           flexDirection: 'row',
         }}>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
-        <Text style={{ color: card.color, fontSize: 120 }}>{card.type}</Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
+        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
+          {card.type}
+        </Text>
       </View>
     </View>
   );

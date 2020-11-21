@@ -4,7 +4,7 @@ import { TouchableHighlight, StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@react-navigation/native';
 
-import { border, flex } from '../../style/layout';
+import { flex } from '../../style/layout';
 import { margins, paddings } from '../../style/spacing';
 import { shadows } from '../../style/shadows';
 
@@ -17,7 +17,7 @@ export const Button = ({
   LeftElement,
   RightElement,
   bgColor,
-  shadow = shadows.L1Info,
+  shadow = shadows.L1Black,
 }) => {
   const { colors } = useTheme();
 
@@ -26,16 +26,20 @@ export const Button = ({
       activeOpacity={0.85}
       underlayColor={underlayColor || 'none'}
       onPress={() => !disabled && onPress && onPress()}
-      style={[border.rounded, StyleSheet.flatten(style)]}>
+      style={[
+        StyleSheet.flatten(style),
+        shadow,
+        {
+          backgroundColor: bgColor || colors.info,
+          justifyContent: 'center',
+        },
+      ]}>
       <View
         style={[
           {
-            backgroundColor: bgColor || colors.info,
             alignItems: 'center',
           },
-          paddings.px6,
           paddings.py3,
-          shadow,
         ]}>
         <View style={[flex.row, flex.centerX]}>
           {LeftElement && <View style={[margins.mr2]}>{LeftElement}</View>}

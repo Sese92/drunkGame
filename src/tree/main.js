@@ -46,7 +46,7 @@ export const Main = () => {
           </Text>
         </Button>
         <Button
-          style={[margins.mt8]}
+          style={[margins.mt8, paddings.px6]}
           onPress={() => {
             dispatch(selectGame({ game: 'Bus' }));
             navigation.navigate('GameConfig', { game: 'Bus' });

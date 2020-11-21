@@ -1,7 +1,7 @@
 export function setPlayers(number) {
   const arrayOfPlayers = [];
   for (let i = 0; i < number; i++) {
-    arrayOfPlayers.push('Player ' + (i + 1));
+    arrayOfPlayers.push({ name: 'Player ' + (i + 1), hand: [] });
   }
   return arrayOfPlayers;
 }
@@ -22,10 +22,42 @@ export function selectRandomCard(cards) {
 }
 
 export function removeCard(cards, card) {
-  console.log(cards);
-  console.log(card);
+  const string = JSON.stringify(cards);
+  const goodCards = JSON.parse(string);
+  const type = goodCards.find((type) => type.type === card.type);
+  var cardsByType;
+  cardsByType = type.cards.filter((c) => c !== card.number);
+  if (type.type === 'Joker') {
+    cardsByType = type.cards.slice(0, type.cards.length - 1);
+  }
+  var index = goodCards
+    .map(function (e) {
+      return e.type;
+    })
+    .indexOf(type.type);
+  goodCards[index] = {
+    type: type.type,
+    color: type.color,
+    cards: cardsByType,
+  };
+  if (goodCards[index].cards.length === 0) {
+    const car = goodCards.filter((typ) => typ.type !== type.type);
+    return car;
+  } else {
+    return goodCards;
+  }
+}
 
-  return cards;
+export function setHand(players, turn, card) {
+  const string = JSON.stringify(players);
+  const goodPlayers = JSON.parse(string);
+  const player = goodPlayers[turn];
+
+  if (card.type !== 'Joker') {
+    goodPlayers[turn] = { name: player.name, hand: [...player.hand, card] };
+  }
+
+  return goodPlayers;
 }
 
 export const dice = [
