@@ -8,7 +8,6 @@ export const Eight = ({ card }) => {
       style={{
         width: '100%',
         height: '100%',
-        padding: 10,
       }}>
       <View
         style={{

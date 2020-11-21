@@ -17,6 +17,7 @@ import {
   Eight,
   Nine,
   Ten,
+  Joker,
 } from './Numbers';
 
 export const Card = ({ card }) => {
@@ -46,7 +47,8 @@ export const Card = ({ card }) => {
         return <Nine card={card} />;
       case 10:
         return <Ten card={card} />;
-
+      case 'Joker':
+        return <Joker />;
       default:
         return (
           <Text style={{ fontSize: 150, color: card.color }}>
@@ -69,6 +71,39 @@ export const Card = ({ card }) => {
         }}
         ref={(c) => (cardDisplay = c)}>
         {/* Front Side */}
+        <TouchableWithoutFeedback onPress={() => cardDisplay.flip()}>
+          <View
+            style={{
+              borderRadius: 10,
+              borderWidth: 4,
+              borderColor: colors.black,
+              padding: 20,
+              backgroundColor: colors.white,
+            }}>
+            <View
+              style={{
+                backgroundColor: colors.primary,
+                width: '100%',
+                height: '100%',
+                borderRadius: 10,
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 80,
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                  color: colors.info,
+                }}>
+                Bus game
+              </Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+
+        {/* Back Side */}
+
         <TouchableWithoutFeedback
           style={{
             backgroundColor: colors.white,
@@ -86,7 +121,7 @@ export const Card = ({ card }) => {
               fontWeight: 'bold',
               color: card.color,
             }}>
-            {card.number}
+            {card.type !== 'Joker' && card.number}
             {card.type}
           </Text>
           <View style={[margins.m9]}>
@@ -99,7 +134,8 @@ export const Card = ({ card }) => {
                   height: '100%',
                   borderRadius: 20,
                   borderColor: colors.black,
-                  borderWidth: 1,
+                  borderWidth: card.type !== 'Joker' ? 1 : 0,
+                  padding: 10,
                 },
               ]}>
               {RenderCard()}
@@ -115,35 +151,9 @@ export const Card = ({ card }) => {
               right: 8,
               color: card.color,
             }}>
-            {card.number}
+            {card.type !== 'Joker' && card.number}
             {card.type}
           </Text>
-        </TouchableWithoutFeedback>
-
-        {/* Back Side */}
-        <TouchableWithoutFeedback onPress={() => cardDisplay.flip()}>
-          <View
-            style={{
-              width: '100%',
-              height: '100%',
-              backgroundColor: colors.info,
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: colors.black,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 80,
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-                color: colors.primary,
-              }}>
-              Bus game
-            </Text>
-          </View>
         </TouchableWithoutFeedback>
       </CardFlip>
     </View>
