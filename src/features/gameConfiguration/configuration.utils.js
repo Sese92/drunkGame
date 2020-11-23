@@ -60,6 +60,16 @@ export function setHand(players, turn, card) {
   return goodPlayers;
 }
 
+export function setBusCard(busCards, card) {
+  const string = JSON.stringify(busCards);
+  const goodCards = JSON.parse(string);
+
+  let car = goodCards.find((card) => card === 0);
+  let index = goodCards.indexOf(car);
+  goodCards[index] = card;
+  return goodCards;
+}
+
 export const dice = [
   { number: 1, color: 'red', rule: 'New rule!' },
   { number: 7, color: 'black', rule: 'The one on the left drink!' },

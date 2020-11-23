@@ -27,7 +27,7 @@ export const Seven = ({ card }) => {
       </View>
       <View
         style={{
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-around',
           flex: 1,
           flexDirection: 'row',
           alignItems: 'center',

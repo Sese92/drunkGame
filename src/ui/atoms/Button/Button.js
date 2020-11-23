@@ -32,6 +32,7 @@ export const Button = ({
         {
           backgroundColor: bgColor || colors.info,
           justifyContent: 'center',
+          opacity: disabled ? 0.4 : 1,
         },
       ]}>
       <View

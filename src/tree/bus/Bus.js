@@ -1,48 +1,55 @@
-import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { SafeAreaView, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
-import { useSelector } from 'react-redux';
+import { Portal } from 'react-native-portalize';
+import { Modalize } from 'react-native-modalize';
 
-import {
-  selectPlayers,
-  selectTurn,
-  selectCard,
-  selectNumberOfRows,
-} from '../../features/gameConfiguration/configuration.store';
+import { FloatingBar } from '../../ui/atoms/FloatingBar';
+import { PlayersHands } from './PlayersHands';
+import { BusDisplay } from './BusDisplay';
+
+import { RoundButton } from '../../ui/atoms/RoundButton/RoundButton';
+import { margins } from '../../ui/style/spacing';
+import { IconCards } from '../../ui/zicons/Cards';
+
+import { setTurn } from '../../services/game/game.service';
 
 export const Bus = () => {
-  const card = useSelector(selectCard);
-  const players = useSelector(selectPlayers);
-  const turn = useSelector(selectTurn);
-  const rows = useSelector(selectNumberOfRows);
+  const { colors } = useTheme();
+
+  const modalizeRef = useRef(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTurn({ turn: 0 }));
+  }, []);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   return (
-    <SafeAreaView>
-      <Text>BUS!</Text>
-      <Text>
-        {card.type}
-        {card.number}
-      </Text>
-      {players.map((player, i) => (
-        <View key={i}>
-          <Text>{player.name}</Text>
-          {player.hand.map(
-            (ha, j) => (
-              console.log(ha),
-              (
-                <View key={j}>
-                  <Text>
-                    {ha.number}
-                    {ha.type}
-                  </Text>
-                </View>
-              )
-            )
-          )}
+    <SafeAreaView style={{ flex: 1 }}>
+      <BusDisplay />
+
+      <Portal>
+        <Modalize ref={modalizeRef} adjustToContentHeight={true}>
+          <PlayersHands />
+        </Modalize>
+      </Portal>
+      <FloatingBar style={{ left: 'auto', bottom: 140 }}>
+        <View style={[margins.mx4]}>
+          <RoundButton onPress={() => onOpen()}>
+            <IconCards
+              width={24}
+              height={24}
+              iconLineColor={colors.info}></IconCards>
+          </RoundButton>
         </View>
-      ))}
-      <Text>{turn}</Text>
-      <Text>{rows}</Text>
+      </FloatingBar>
     </SafeAreaView>
   );
 };

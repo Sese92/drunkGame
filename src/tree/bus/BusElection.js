@@ -119,7 +119,7 @@ export const BusElection = () => {
         style={[
           flex.row,
           margins.mb6,
-          { justifyContent: 'space-evenly', width: '100%' },
+          { justifyContent: 'space-around', width: '100%' },
         ]}>
         {players[turn].hand.map(
           (card, i) =>

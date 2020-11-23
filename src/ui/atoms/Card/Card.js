@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import { View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CardFlip from 'react-native-card-flip';
 
@@ -181,14 +181,14 @@ export const Card = ({ card, flip, styles }) => {
   );
 };
 
-export const SmallCard = ({ card }) => {
+export const SmallCard = ({ style, card, backSide = false }) => {
   const { colors } = useTheme();
 
   return (
     <View
       style={[
         paddings.px1,
-        paddings.py3,
+        paddings.py1,
         {
           backgroundColor: colors.white,
           borderColor: colors.black,
@@ -199,10 +199,33 @@ export const SmallCard = ({ card }) => {
           justifyContent: 'center',
           alignItems: 'center',
         },
+        StyleSheet.flatten(style),
       ]}>
-      <Text style={{ color: card.color }}>
-        {card.number} {card.type}
-      </Text>
+      {backSide ? (
+        <View
+          style={{
+            backgroundColor: colors.primary,
+            width: '100%',
+            height: '100%',
+            borderRadius: 4,
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 10,
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              color: colors.info,
+            }}>
+            Bus game
+          </Text>
+        </View>
+      ) : (
+        <Text style={{ color: card.color }}>
+          {card.number} {card.type}
+        </Text>
+      )}
     </View>
   );
 };
