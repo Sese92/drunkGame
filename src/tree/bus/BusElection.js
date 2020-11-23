@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View, Text } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
+import { Portal } from 'react-native-portalize';
+import { Modalize } from 'react-native-modalize';
+
+import { RowsModal } from './RowsModal';
 import { setTurn, removeCard } from '../../services/game/game.service';
 import {
   selectPlayers,
@@ -16,6 +20,7 @@ import { margins, paddings } from '../../ui/style/spacing';
 
 export const BusElection = () => {
   const navigation = useNavigation();
+  const modalizeRef = useRef(null);
 
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -31,6 +36,14 @@ export const BusElection = () => {
     saveFlipCard(false);
   }, []);
 
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
+  const onClose = () => {
+    modalizeRef.current?.close();
+  };
+
   function nextTurn() {
     if (turn < players.length - 1) {
       saveFlipCard(false);
@@ -39,20 +52,22 @@ export const BusElection = () => {
         dispatch(setTurn({ turn: turn + 1 }));
       }
     } else {
-      if (players[0].hand.length === 4) {
-        navigation.navigate('Bus');
-      } else {
+      if (players[players.length - 1].hand.length === 3) {
+        if (card.type !== 'Joker') {
+          saveFlipCard(false);
+          onOpen();
+        }
+      } else if (players[players.length - 1].hand.length < 3) {
         saveFlipCard(false);
         dispatch(removeCard({ card: card }));
         if (card.type !== 'Joker') {
           dispatch(setTurn({ turn: 0 }));
         }
+      } else {
+        saveFlipCard(false);
+        onOpen();
       }
     }
-  }
-
-  function selectOption() {
-    saveFlipCard(true);
   }
 
   function renderLeftButton() {
@@ -129,14 +144,14 @@ export const BusElection = () => {
               width: '100%',
             },
           ]}>
-          <Button style={{ width: '25%' }} onPress={() => selectOption()}>
+          <Button style={{ width: '25%' }} onPress={() => saveFlipCard(true)}>
             <Text
               style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
               {renderLeftButton()}
             </Text>
           </Button>
           {players[turn].hand.length > 0 && players[turn].hand.length < 3 && (
-            <Button style={{ width: '25%' }} onPress={() => selectOption()}>
+            <Button style={{ width: '25%' }} onPress={() => saveFlipCard(true)}>
               <Text
                 style={{
                   fontSize: 20,
@@ -147,7 +162,7 @@ export const BusElection = () => {
               </Text>
             </Button>
           )}
-          <Button style={{ width: '25%' }} onPress={() => selectOption()}>
+          <Button style={{ width: '25%' }} onPress={() => saveFlipCard(true)}>
             <Text
               style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
               {renderRightButton()}
@@ -176,6 +191,15 @@ export const BusElection = () => {
           </Button>
         </View>
       )}
+      <Portal>
+        <Modalize ref={modalizeRef} adjustToContentHeight={true}>
+          <RowsModal
+            lastCard={card}
+            navigation={navigation}
+            onClose={() => onClose()}
+          />
+        </Modalize>
+      </Portal>
     </SafeAreaView>
   );
 };
