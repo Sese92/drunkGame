@@ -70,6 +70,41 @@ export function setBusCard(busCards, card) {
   return goodCards;
 }
 
+export function selectPlayersByCard(players, card) {
+  let playersAffected = [];
+  for (let i = 0; i < players.length; i++) {
+    for (let j = 0; j < players[i].hand.length; j++) {
+      if (players[i].hand[j].number === card.number) {
+        playersAffected.push(players[i]);
+      }
+    }
+  }
+  return playersAffected;
+}
+
+export function removeFromHand(players, player, card) {
+  const string = JSON.stringify(players);
+  const goodPlayers = JSON.parse(string);
+  let index = 0;
+  for (let i = 0; i < goodPlayers.length; i++) {
+    if (goodPlayers[i].name === player.name) {
+      index = i;
+    }
+  }
+
+  var cards = [];
+  for (let j = 0; j < goodPlayers[index].hand.length; j++) {
+    if (goodPlayers[index].hand[j].number !== card.number) {
+      cards.push(goodPlayers[index].hand[j]);
+    }
+  }
+  if (card.type !== 'Joker') {
+    goodPlayers[index] = { name: player.name, hand: [...cards] };
+  }
+
+  return goodPlayers;
+}
+
 export const dice = [
   { number: 1, color: 'red', rule: 'New rule!' },
   { number: 7, color: 'black', rule: 'The one on the left drink!' },

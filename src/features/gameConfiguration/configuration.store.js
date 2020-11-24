@@ -9,6 +9,7 @@ import {
   SET_NUMBER_JOKERS,
   REMOVE_CARD,
   FLIP_CARD,
+  REMOVE_CARD_FROM_HAND,
 } from '../../services/game/game.service';
 
 import {
@@ -17,6 +18,8 @@ import {
   selectRandomCard,
   removeCard,
   setBusCard,
+  selectPlayersByCard,
+  removeFromHand,
   setHand,
   dice,
   cards,
@@ -86,6 +89,16 @@ const configurationSlice = createSlice({
         busCards: setBusCard(state.busCards.slice(), action.meta.card),
       };
     },
+    [REMOVE_CARD_FROM_HAND]: (state, action) => {
+      return {
+        ...state,
+        players: removeFromHand(
+          state.players.slice(),
+          action.meta.player,
+          action.meta.card
+        ),
+      };
+    },
   },
 });
 
@@ -133,6 +146,12 @@ const selectBusCards = createSelector(
   (configuration) => configuration.busCards
 );
 
+const selectPlayersFiltered = createSelector(
+  selectRoot,
+  selectCard,
+  (configuration, card) => selectPlayersByCard(configuration.players, card)
+);
+
 export {
   selectGame,
   selectNumberOfJokers,
@@ -142,6 +161,7 @@ export {
   selectPlayers,
   selectCard,
   selectBusCards,
+  selectPlayersFiltered,
 };
 
 export const { actions, reducer } = configurationSlice;

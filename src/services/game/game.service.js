@@ -5,6 +5,7 @@ export const SET_NUMBER_ROWS = 'SET_NUMBER_ROWS';
 export const SET_TURN = 'SET_TURN';
 export const REMOVE_CARD = 'REMOVE_CARD';
 export const FLIP_CARD = 'FLIP_CARD';
+export const REMOVE_CARD_FROM_HAND = 'REMOVE_CARD_FROM_HAND';
 
 export const selectGame = ({ game }) => ({
   type: SELECT_GAME,
@@ -51,6 +52,14 @@ export const removeCard = ({ card }) => ({
 export const flipCard = ({ card }) => ({
   type: FLIP_CARD,
   meta: {
+    card,
+  },
+});
+
+export const removeFromHand = ({ player, card }) => ({
+  type: REMOVE_CARD_FROM_HAND,
+  meta: {
+    player,
     card,
   },
 });
