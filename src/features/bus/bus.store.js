@@ -30,7 +30,10 @@ const busSlice = createSlice({
     [SET_NUMBER_JOKERS]: (state, action) => {
       return {
         ...state,
-        cards: [...cards, setJokers(action.meta.jokers)],
+        cards:
+          action.meta.jokers !== 0
+            ? [...cards, setJokers(action.meta.jokers)]
+            : cards,
       };
     },
     [SET_NUMBER_ROWS]: (state, action) => {

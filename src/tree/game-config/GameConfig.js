@@ -24,9 +24,7 @@ export const GameConfig = () => {
   function nextScreen() {
     dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
     if (game === 'Bus') {
-      if (jokers > 0) {
-        dispatch(setNumberOfJokers({ jokers: jokers }));
-      }
+      dispatch(setNumberOfJokers({ jokers: jokers }));
       navigation.navigate('Bus');
     } else {
       navigation.navigate('Jota');
