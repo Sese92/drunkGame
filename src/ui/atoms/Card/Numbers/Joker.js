@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View, Image } from 'react-native';
 
-export const Joker = ({ height, width }) => {
+export const Joker = ({ height = '75%', width = 250 }) => {
   return (
     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Image
