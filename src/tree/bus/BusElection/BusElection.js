@@ -7,16 +7,16 @@ import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
 
 import { RowsModal } from './RowsModal';
-import { setTurn, removeCard } from '../../services/game/game.service';
+import { setTurn, removeCard } from '../../../services/game/game.service';
 import {
   selectPlayers,
   selectTurn,
   selectCard,
-} from '../../features/gameConfiguration/configuration.store';
-import { Button } from '../../ui/atoms/Button';
-import { Card, SmallCard } from '../../ui/atoms/Card';
-import { flex } from '../../ui/style/layout';
-import { margins, paddings } from '../../ui/style/spacing';
+} from '../../../features/gameConfiguration/configuration.store';
+import { Button } from '../../../ui/atoms/Button';
+import { Card, SmallCard } from '../../../ui/atoms/Card';
+import { flex } from '../../../ui/style/layout';
+import { margins, paddings } from '../../../ui/style/spacing';
 
 export const BusElection = () => {
   const navigation = useNavigation();

@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { setNumberOfRows, removeCard } from '../../services/game/game.service';
+import {
+  setNumberOfRows,
+  removeCard,
+} from '../../../services/game/game.service';
 
-import { QuantityButtons } from '../../ui/organisms/QuantityButtons';
+import { QuantityButtons } from '../../../ui/organisms/QuantityButtons';
 
-import { margins } from '../../ui/style/spacing';
-import { Button } from '../../ui/atoms/Button';
+import { margins } from '../../../ui/style/spacing';
+import { Button } from '../../../ui/atoms/Button';
 
 export const RowsModal = ({ navigation, onClose, lastCard }) => {
   const [localRows, saveRows] = useState(1);

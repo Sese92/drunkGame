@@ -10,13 +10,13 @@ import {
   selectCard,
   selectNumberOfRows,
   selectPlayersFiltered,
-} from '../../features/gameConfiguration/configuration.store';
+} from '../../../features/gameConfiguration/configuration.store';
 
-import { flipCard } from '../../services/game/game.service';
-import { SmallCard } from '../../ui/atoms/Card';
-import { Button } from '../../ui/atoms/Button';
-import { margins } from '../../ui/style/spacing';
-import { FloatingBar } from '../../ui/atoms/FloatingBar';
+import { flipCard } from '../../../services/game/game.service';
+import { SmallCard } from '../../../ui/atoms/Card';
+import { Button } from '../../../ui/atoms/Button';
+import { margins } from '../../../ui/style/spacing';
+import { FloatingBar } from '../../../ui/atoms/FloatingBar';
 import { PlayersHands } from './PlayersHands';
 
 export const BusDisplay = () => {

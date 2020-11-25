@@ -6,15 +6,15 @@ import { useTheme } from '@react-navigation/native';
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
 
-import { FloatingBar } from '../../ui/atoms/FloatingBar';
+import { FloatingBar } from '../../../ui/atoms/FloatingBar';
 import { PlayersHands } from './PlayersHands';
 import { BusDisplay } from './BusDisplay';
 
-import { RoundButton } from '../../ui/atoms/RoundButton/RoundButton';
-import { margins } from '../../ui/style/spacing';
-import { IconCards } from '../../ui/zicons/Cards';
+import { RoundButton } from '../../../ui/atoms/RoundButton/RoundButton';
+import { margins } from '../../../ui/style/spacing';
+import { IconCards } from '../../../ui/zicons/Cards';
 
-import { setTurn } from '../../services/game/game.service';
+import { setTurn } from '../../../services/game/game.service';
 
 export const Bus = () => {
   const { colors } = useTheme();

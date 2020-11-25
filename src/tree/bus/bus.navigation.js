@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { BusElection } from './BusElection';
-import { Bus } from './Bus';
+import { BusElection } from './BusElection/BusElection';
+import { Bus } from './Bus/Bus';
 
 // import { useTheme } from '@react-navigation/native';
 
