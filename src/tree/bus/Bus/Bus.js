@@ -33,7 +33,7 @@ export const Bus = () => {
   const busCards = useSelector(selectBusCards);
 
   const numberOfBusCards = busCards.filter((card) => card !== 0);
-  console.log(numberOfBusCards);
+
   const modalizeHands = useRef(null);
   const modalizeCard = useRef(null);
 
