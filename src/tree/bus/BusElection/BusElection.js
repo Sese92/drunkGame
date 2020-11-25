@@ -7,12 +7,13 @@ import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
 
 import { RowsModal } from './RowsModal';
-import { setTurn, removeCard } from '../../../services/game/game.service';
+import { setTurn } from '../../../services/game/game.service';
+import { removeCard, setPlayerHand } from '../../../services/bus/bus.service';
 import {
   selectPlayers,
   selectTurn,
-  selectCard,
 } from '../../../features/gameConfiguration/configuration.store';
+import { selectCard } from '../../../features/bus/bus.store';
 import { Button } from '../../../ui/atoms/Button';
 import { Card, SmallCard } from '../../../ui/atoms/Card';
 import { flex } from '../../../ui/style/layout';
@@ -47,6 +48,7 @@ export const BusElection = () => {
   function nextTurn() {
     if (turn < players.length - 1) {
       saveFlipCard(false);
+      dispatch(setPlayerHand({ player: players[turn], card: card }));
       dispatch(removeCard({ card: card }));
       if (card.type !== 'Joker') {
         dispatch(setTurn({ turn: turn + 1 }));
@@ -56,9 +58,12 @@ export const BusElection = () => {
         if (card.type !== 'Joker') {
           saveFlipCard(false);
           onOpen();
+        } else {
+          saveFlipCard(false);
         }
       } else if (players[players.length - 1].hand.length < 3) {
         saveFlipCard(false);
+        dispatch(setPlayerHand({ player: players[turn], card: card }));
         dispatch(removeCard({ card: card }));
         if (card.type !== 'Joker') {
           dispatch(setTurn({ turn: 0 }));

@@ -221,10 +221,12 @@ export const SmallCard = ({ style, card, backSide = false }) => {
             Bus game
           </Text>
         </View>
-      ) : (
+      ) : card.type !== 'Joker' ? (
         <Text style={{ color: card.color }}>
           {card.number} {card.type}
         </Text>
+      ) : (
+        <Joker width={60} height={'75%'} />
       )}
     </View>
   );

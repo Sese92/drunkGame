@@ -4,10 +4,8 @@ import { SafeAreaView, View, Text, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { selectGame } from '../../features/gameConfiguration/configuration.store';
-import {
-  setNumberOfPlayers,
-  setNumberOfJokers,
-} from '../../services/game/game.service';
+import { setNumberOfPlayers } from '../../services/game/game.service';
+import { setNumberOfJokers } from '../../services/bus/bus.service';
 import { flex } from '../../ui/style/layout';
 import { margins } from '../../ui/style/spacing';
 import { QuantityButtons } from '../../ui/organisms/QuantityButtons';

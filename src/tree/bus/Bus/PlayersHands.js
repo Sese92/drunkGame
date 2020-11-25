@@ -9,7 +9,7 @@ import { Button } from '../../../ui/atoms/Button';
 import { flex } from '../../../ui/style/layout';
 import { margins, paddings } from '../../../ui/style/spacing';
 import { selectPlayers } from '../../../features/gameConfiguration/configuration.store';
-import { removeFromHand, flipCard } from '../../../services/game/game.service';
+import { removeFromHand, flipCard } from '../../../services/bus/bus.service';
 
 export const PlayersHands = ({ playersPassed, card }) => {
   const dispatch = useDispatch();

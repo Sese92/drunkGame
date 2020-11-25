@@ -10,9 +10,9 @@ import {
   selectCard,
   selectNumberOfRows,
   selectPlayersFiltered,
-} from '../../../features/gameConfiguration/configuration.store';
+} from '../../../features/bus/bus.store';
 
-import { flipCard } from '../../../services/game/game.service';
+import { flipCard } from '../../../services/bus/bus.service';
 import { SmallCard } from '../../../ui/atoms/Card';
 import { Button } from '../../../ui/atoms/Button';
 import { margins } from '../../../ui/style/spacing';

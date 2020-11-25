@@ -12,8 +12,8 @@ import { setTurn } from '../../services/game/game.service';
 import {
   selectTurn,
   selectPlayers,
-  selectRandomDice,
 } from '../../features/gameConfiguration/configuration.store';
+import { selectRandomDice } from '../../features/jota/jota.store';
 import { Button } from '../../ui/atoms/Button';
 import { flex } from '../../ui/style/layout';
 import { margins, paddings } from '../../ui/style/spacing';

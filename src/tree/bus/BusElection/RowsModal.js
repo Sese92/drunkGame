@@ -3,10 +3,7 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import {
-  setNumberOfRows,
-  removeCard,
-} from '../../../services/game/game.service';
+import { setNumberOfRows, removeCard } from '../../../services/bus/bus.service';
 
 import { QuantityButtons } from '../../../ui/organisms/QuantityButtons';
 
