@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View, Text, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
+
+import { Portal } from 'react-native-portalize';
+import { Modalize } from 'react-native-modalize';
 
 import { selectGame } from '../../features/gameConfiguration/configuration.store';
 import { setNumberOfPlayers } from '../../services/game/game.service';
@@ -12,6 +15,7 @@ import { QuantityButtons } from '../../ui/organisms/QuantityButtons';
 import { FloatingBar } from '../../ui/atoms/FloatingBar';
 import { Button } from '../../ui/atoms/Button';
 import { IconArrow } from '../../ui/zicons/Arrow';
+import { PlayersNames } from './PlayersNames';
 
 export const GameConfig = () => {
   const game = useSelector(selectGame);
@@ -21,8 +25,23 @@ export const GameConfig = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const modalizeNames = useRef(null);
+
   function nextScreen() {
     dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
+    openPlayersNames();
+  }
+
+  const openPlayersNames = () => {
+    modalizeNames.current?.open();
+  };
+
+  const closePlayersNames = () => {
+    modalizeNames.current?.close();
+  };
+
+  function continueToGame() {
+    closePlayersNames();
     if (game === 'Bus') {
       dispatch(setNumberOfJokers({ jokers: jokers }));
       navigation.navigate('Bus');
@@ -98,10 +117,15 @@ export const GameConfig = () => {
       <FloatingBar>
         <View style={[margins.mx4]}>
           <Button onPress={() => nextScreen()}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Play now!</Text>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Continue</Text>
           </Button>
         </View>
       </FloatingBar>
+      <Portal>
+        <Modalize ref={modalizeNames} adjustToContentHeight={true}>
+          <PlayersNames continueToGame={() => continueToGame()} />
+        </Modalize>
+      </Portal>
     </SafeAreaView>
   );
 };

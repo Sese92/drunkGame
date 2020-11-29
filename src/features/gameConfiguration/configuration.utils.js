@@ -11,3 +11,14 @@ export function setPlayers(number, game) {
   }
   return arrayOfPlayers;
 }
+
+export function setPlayersNames(players, names) {
+  const string = JSON.stringify(players);
+  const goodPlayers = JSON.parse(string);
+  for (let i = 0; i < goodPlayers.length; i++) {
+    if (names[i] !== '') {
+      goodPlayers[i].name = names[i];
+    }
+  }
+  return goodPlayers;
+}
