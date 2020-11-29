@@ -12,8 +12,11 @@ import {
   REMOVE_CARD_FROM_HAND,
 } from '../../services/bus/bus.service';
 
+import { SET_PLAYER_AS_JOTA } from '../../services/jota/jota.service';
+
 import { setPlayers } from './configuration.utils';
 import { setHand, removeFromHand } from '../bus/bus.utils';
+import { setJota } from '../jota/jota.utils';
 export const initialState = {
   game: '',
   players: [],
@@ -43,6 +46,13 @@ const configurationSlice = createSlice({
       };
     },
 
+    // Jota
+    [SET_PLAYER_AS_JOTA]: (state, action) => {
+      return {
+        ...state,
+        players: setJota(state.players, action.meta.player),
+      };
+    },
     // Bus
     [SET_PLAYER_HAND]: (state, action) => {
       return {

@@ -10,3 +10,11 @@ export const FloatingBar = ({ children, style }) => {
     </View>
   );
 };
+
+export const FloatingTopBar = ({ children, style }) => {
+  return (
+    <View style={[position.a, position.top, StyleSheet.flatten(style)]}>
+      {children}
+    </View>
+  );
+};
