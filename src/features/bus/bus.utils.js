@@ -84,15 +84,14 @@ export function removeFromHand(players, player, card) {
     }
   }
 
-  var cards = [];
-  for (let j = 0; j < goodPlayers[index].hand.length; j++) {
-    if (goodPlayers[index].hand[j].number !== card.number) {
-      cards.push(goodPlayers[index].hand[j]);
-    }
-  }
-  if (card.type !== 'Joker') {
-    goodPlayers[index] = { name: player.name, hand: [...cards] };
-  }
+  var cards = goodPlayers[index].hand;
+  const cardRemoved = goodPlayers[index].hand.find(
+    (handCard) => handCard.number === card.number
+  );
+
+  const newCards = cards.filter((c) => c !== cardRemoved);
+
+  goodPlayers[index] = { name: player.name, hand: [...newCards] };
 
   return goodPlayers;
 }

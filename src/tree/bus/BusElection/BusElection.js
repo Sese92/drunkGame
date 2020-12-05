@@ -57,6 +57,7 @@ export const BusElection = () => {
       if (players[players.length - 1].hand.length === 3) {
         if (card.type !== 'Joker') {
           saveFlipCard(false);
+          dispatch(setPlayerHand({ player: players[turn], card: card }));
           onOpen();
         } else {
           saveFlipCard(false);
@@ -138,7 +139,7 @@ export const BusElection = () => {
         card={flipCard ? card : null}
       />
 
-      {!flipCard ? (
+      {!flipCard && players[players.length - 1].hand.length < 4 ? (
         <View
           style={[
             margins.mt3,
@@ -184,16 +185,29 @@ export const BusElection = () => {
               justifyContent: 'center',
             },
           ]}>
-          <Button style={[paddings.px5]} onPress={() => nextTurn()}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}>
-              Next!
-            </Text>
-          </Button>
+          {players[players.length - 1].hand.length < 4 ? (
+            <Button style={[paddings.px5]} onPress={() => nextTurn()}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}>
+                Next!
+              </Text>
+            </Button>
+          ) : (
+            <Button style={[paddings.px5]} onPress={() => onOpen()}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}>
+                Next round
+              </Text>
+            </Button>
+          )}
         </View>
       )}
       <Portal>

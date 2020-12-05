@@ -53,6 +53,7 @@ export const Bus = () => {
 
   const onCloseCard = () => {
     modalizeCard.current?.close();
+    dispatch(flipCard({ card: card }));
   };
 
   function checkCard() {
@@ -61,10 +62,15 @@ export const Bus = () => {
 
   function nextCard() {
     onCloseCard();
-    dispatch(flipCard({ card: card }));
-    if (rows * 2 + 1 === numberOfBusCards.length) {
-      onCloseCard();
+  }
+
+  function formButtonTitle() {
+    if (rows * 2 === numberOfBusCards.length) {
+      return 'Shot!';
     }
+    const title = (numberOfBusCards.length + 1) % 2 === 1 ? 'Drink' : 'Send';
+    const number = Math.ceil((numberOfBusCards.length + 1) / 2);
+    return title + ' ' + number.toString();
   }
 
   return (
@@ -79,21 +85,30 @@ export const Bus = () => {
 
       <Portal>
         <Modalize ref={modalizeCard} adjustToContentHeight={true}>
-          <View style={[margins.m4]}>
-            <Text style={{ alignSelf: 'center' }}>
-              {/* {cardNumber % 2 === 0 ? 'Drink' : 'Send'}{' '}
-              {Math.floor(cardNumber / 2) + 1} */}
+          <View style={[margins.m4, margins.mb9]}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
+              {formButtonTitle()}
             </Text>
             <SmallCard
-              style={{ height: 130, width: 90, alignSelf: 'center' }}
+              style={{
+                height: 120,
+                width: 85,
+                alignSelf: 'center',
+                marginBottom: filtered.length === 0 ? 30 : 0,
+              }}
               card={card}
             />
+
             <PlayersHands playersPassed={filtered} card={card} />
 
             <Button
-              disabled={rows * 2 + 1 === numberOfBusCards.length}
+              disabled={
+                filtered.length > 0 && rows * 2 === numberOfBusCards.length
+              }
               onPress={() => nextCard()}>
-              <Text>Next card</Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {rows * 2 === numberOfBusCards.length ? 'Finish' : 'Next card'}
+              </Text>
             </Button>
           </View>
         </Modalize>
@@ -109,15 +124,30 @@ export const Bus = () => {
           </RoundButton>
         </View>
       </FloatingBar>
-      <FloatingBar>
-        <View style={[margins.mx4]}>
-          <Button
-            disabled={rows * 2 + 1 === numberOfBusCards.length}
-            onPress={() => checkCard()}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Next!</Text>
-          </Button>
-        </View>
-      </FloatingBar>
+
+      {rows * 2 + 1 > numberOfBusCards.length ? (
+        <FloatingBar>
+          <View style={[margins.mx4]}>
+            <Button
+              disabled={rows * 2 + 1 === numberOfBusCards.length}
+              onPress={() => checkCard()}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                {formButtonTitle()}
+              </Text>
+            </Button>
+          </View>
+        </FloatingBar>
+      ) : (
+        <FloatingBar>
+          <View style={[margins.mx4]}>
+            <Button>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                Final round
+              </Text>
+            </Button>
+          </View>
+        </FloatingBar>
+      )}
     </SafeAreaView>
   );
 };

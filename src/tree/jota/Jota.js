@@ -83,16 +83,22 @@ export const Jota = () => {
           First round
         </Text>
       )}
-      <FloatingTopBar style={{ left: 'auto' }}>
-        <View style={[margins.mx4]}>
-          <RoundButton onPress={() => onOpenPlayers()}>
-            <Text
-              style={{ color: colors.white, fontWeight: 'bold', fontSize: 20 }}>
-              J
-            </Text>
-          </RoundButton>
-        </View>
-      </FloatingTopBar>
+      {!firstRound && (
+        <FloatingTopBar style={{ left: 'auto' }}>
+          <View style={[margins.mx4]}>
+            <RoundButton onPress={() => onOpenPlayers()}>
+              <Text
+                style={{
+                  color: colors.white,
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                }}>
+                J
+              </Text>
+            </RoundButton>
+          </View>
+        </FloatingTopBar>
+      )}
       <Portal>
         <Modalize ref={modalizeJota} adjustToContentHeight={true}>
           <View style={[margins.m5]}>
