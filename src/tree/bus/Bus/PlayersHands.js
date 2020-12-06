@@ -12,7 +12,12 @@ import { margins, paddings } from '../../../ui/style/spacing';
 import { selectPlayers } from '../../../features/gameConfiguration/configuration.store';
 import { removeFromHand } from '../../../services/bus/bus.service';
 
-export const PlayersHands = ({ playersPassed, card }) => {
+export const PlayersHands = ({
+  playersPassed,
+  card,
+  finalRound,
+  toFinalRound,
+}) => {
   const dispatch = useDispatch();
   const { colors } = useTheme();
 
@@ -59,6 +64,11 @@ export const PlayersHands = ({ playersPassed, card }) => {
           )}
         </View>
       ))}
+      {finalRound && (
+        <Button onPress={toFinalRound}>
+          <Text>Go to final round</Text>
+        </Button>
+      )}
     </View>
   );
 };

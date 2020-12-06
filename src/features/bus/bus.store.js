@@ -6,6 +6,7 @@ import {
   SET_NUMBER_JOKERS,
   REMOVE_CARD,
   FLIP_CARD,
+  FINAL_ROUND,
 } from '../../services/bus/bus.service';
 
 import {
@@ -54,6 +55,16 @@ const busSlice = createSlice({
         ...state,
         cards: removeCard(state.cards.slice(), action.meta.card),
         busCards: setBusCard(state.busCards.slice(), action.meta.card),
+      };
+    },
+    [FINAL_ROUND]: (state, action) => {
+      return {
+        ...state,
+        cards:
+          action.meta.jokers !== 0
+            ? [...cards, setJokers(action.meta.jokers)]
+            : cards,
+        busCards: [],
       };
     },
   },

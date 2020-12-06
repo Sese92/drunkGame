@@ -96,6 +96,21 @@ export function removeFromHand(players, player, card) {
   return goodPlayers;
 }
 
+export function clearHand(players, player) {
+  const string = JSON.stringify(players);
+  const goodPlayers = JSON.parse(string);
+  let index = 0;
+  for (let i = 0; i < goodPlayers.length; i++) {
+    if (goodPlayers[i].name === player.name) {
+      index = i;
+    }
+  }
+
+  goodPlayers[index] = { name: player.name, hand: [] };
+
+  return goodPlayers;
+}
+
 export const cards = [
   {
     type: '♥',

@@ -22,3 +22,25 @@ export function setPlayersNames(players, names) {
   }
   return goodPlayers;
 }
+
+export function selectLastPlayers(players) {
+  const string = JSON.stringify(players);
+  const goodPlayers = JSON.parse(string);
+
+  let maxLenght = 0;
+  for (let i = 0; i < goodPlayers.length; i++) {
+    if (goodPlayers[i].hand.length > maxLenght) {
+      maxLenght = goodPlayers[i].hand.length;
+    }
+  }
+
+  const lastPlayers = goodPlayers.filter(
+    (player) => player.hand.length === maxLenght
+  );
+
+  for (let i = 0; i < lastPlayers.length; i++) {
+    lastPlayers[i].hand = [];
+  }
+
+  return lastPlayers;
+}

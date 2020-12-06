@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { SafeAreaView, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
@@ -21,16 +21,19 @@ import {
   selectPlayersFiltered,
   selectNumberOfRows,
   selectBusCards,
+  selectNumberOfJokers,
 } from '../../../features/bus/bus.store';
-import { setTurn } from '../../../services/game/game.service';
-import { flipCard } from '../../../services/bus/bus.service';
+import { setTurn, renewPlayers } from '../../../services/game/game.service';
+import { flipCard, finalRound } from '../../../services/bus/bus.service';
 
 export const Bus = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const filtered = useSelector(selectPlayersFiltered);
   const card = useSelector(selectCard);
   const rows = useSelector(selectNumberOfRows);
   const busCards = useSelector(selectBusCards);
+  const numberOfJokers = useSelector(selectNumberOfJokers);
 
   const numberOfBusCards = busCards.filter((card) => card !== 0);
 
@@ -73,13 +76,23 @@ export const Bus = () => {
     return title + ' ' + number.toString();
   }
 
+  function goToFinalRound() {
+    dispatch(renewPlayers());
+    dispatch(finalRound({ jokers: numberOfJokers }));
+    modalizeHands.current?.close();
+    navigation.navigate('FinalRound');
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <BusDisplay />
 
       <Portal>
         <Modalize ref={modalizeHands} adjustToContentHeight={true}>
-          <PlayersHands />
+          <PlayersHands
+            finalRound={rows * 2 + 1 === numberOfBusCards.length}
+            toFinalRound={() => goToFinalRound()}
+          />
         </Modalize>
       </Portal>
 
@@ -140,7 +153,7 @@ export const Bus = () => {
       ) : (
         <FloatingBar>
           <View style={[margins.mx4]}>
-            <Button>
+            <Button onPress={() => onOpenHands()}>
               <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
                 Final round
               </Text>

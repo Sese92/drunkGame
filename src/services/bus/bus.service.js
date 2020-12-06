@@ -4,6 +4,9 @@ export const SET_PLAYER_HAND = 'SET_PLAYER_HAND';
 export const REMOVE_CARD = 'REMOVE_CARD';
 export const FLIP_CARD = 'FLIP_CARD';
 export const REMOVE_CARD_FROM_HAND = 'REMOVE_CARD_FROM_HAND';
+export const FINAL_ROUND = 'FINAL_ROUND';
+export const CLEAR_PLAYER_HAND = 'CLEAR_PLAYER_HAND';
+export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 
 export const setNumberOfJokers = ({ jokers }) => ({
   type: SET_NUMBER_JOKERS,
@@ -27,6 +30,13 @@ export const setPlayerHand = ({ player, card }) => ({
   },
 });
 
+export const clearPlayerHand = ({ player }) => ({
+  type: CLEAR_PLAYER_HAND,
+  meta: {
+    player,
+  },
+});
+
 export const removeCard = ({ card }) => ({
   type: REMOVE_CARD,
   meta: {
@@ -46,5 +56,19 @@ export const removeFromHand = ({ player, card }) => ({
   meta: {
     player,
     card,
+  },
+});
+
+export const finalRound = ({ jokers }) => ({
+  type: FINAL_ROUND,
+  meta: {
+    jokers,
+  },
+});
+
+export const removePlayer = ({ player }) => ({
+  type: REMOVE_PLAYER,
+  meta: {
+    player,
   },
 });

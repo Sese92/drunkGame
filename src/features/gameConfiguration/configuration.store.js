@@ -6,17 +6,24 @@ import {
   SET_NUMBER_PLAYERS,
   SET_NAMES,
   SET_TURN,
+  RENEW_PLAYERS,
 } from '../../services/game/game.service';
 
 import {
   SET_PLAYER_HAND,
   REMOVE_CARD_FROM_HAND,
+  CLEAR_PLAYER_HAND,
+  REMOVE_PLAYER,
 } from '../../services/bus/bus.service';
 
 import { SET_PLAYER_AS_JOTA } from '../../services/jota/jota.service';
 
-import { setPlayers, setPlayersNames } from './configuration.utils';
-import { setHand, removeFromHand } from '../bus/bus.utils';
+import {
+  setPlayers,
+  setPlayersNames,
+  selectLastPlayers,
+} from './configuration.utils';
+import { setHand, removeFromHand, clearHand } from '../bus/bus.utils';
 import { setJota } from '../jota/jota.utils';
 export const initialState = {
   game: '',
@@ -77,6 +84,26 @@ const configurationSlice = createSlice({
         ),
       };
     },
+    [RENEW_PLAYERS]: (state) => {
+      return {
+        ...state,
+        players: selectLastPlayers(state.players),
+      };
+    },
+    [CLEAR_PLAYER_HAND]: (state, action) => {
+      return {
+        ...state,
+        players: clearHand(state.players.slice(), action.meta.player),
+      };
+    },
+    [REMOVE_PLAYER]: (state, action) => {
+      return {
+        ...state,
+        players: state.players.filter(
+          (player) => player.name !== action.meta.player.name
+        ),
+      };
+    },
   },
 });
 
@@ -102,6 +129,16 @@ const selectTurn = createSelector(
   (configuration) => configuration.turn
 );
 
-export { selectGame, selectPlayers, selectNumberOfPlayers, selectTurn };
+const selectFinalPlayers = createSelector(selectRoot, (configuration) =>
+  selectLastPlayers(configuration.players)
+);
+
+export {
+  selectGame,
+  selectPlayers,
+  selectNumberOfPlayers,
+  selectTurn,
+  selectFinalPlayers,
+};
 
 export const { actions, reducer } = configurationSlice;
