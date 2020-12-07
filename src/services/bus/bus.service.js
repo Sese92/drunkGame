@@ -59,11 +59,8 @@ export const removeFromHand = ({ player, card }) => ({
   },
 });
 
-export const finalRound = ({ jokers }) => ({
+export const finalRound = () => ({
   type: FINAL_ROUND,
-  meta: {
-    jokers,
-  },
 });
 
 export const removePlayer = ({ player }) => ({

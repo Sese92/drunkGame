@@ -34,10 +34,19 @@ export const PlayersHands = ({
             <Text style={[margins.mb3, { fontSize: 22, fontWeight: 'bold' }]}>
               {player.name}
             </Text>
-            <View style={[flex.row, { justifyContent: 'space-around' }]}>
-              {player.hand.map((card, j) => (
-                <SmallCard key={j} card={card} />
-              ))}
+            <View
+              style={[
+                flex.row,
+                { justifyContent: 'space-around', height: 70 },
+              ]}>
+              {player.hand.map(
+                (card, j) =>
+                  card.type !== 'Joker' && (
+                    <View key={j} style={{ width: '15%' }}>
+                      <SmallCard style={{ flex: 1 }} card={card} />
+                    </View>
+                  )
+              )}
             </View>
             {playersPassed && (
               <View
@@ -66,7 +75,9 @@ export const PlayersHands = ({
       ))}
       {finalRound && (
         <Button onPress={toFinalRound}>
-          <Text>Go to final round</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+            Go to final round
+          </Text>
         </Button>
       )}
     </View>

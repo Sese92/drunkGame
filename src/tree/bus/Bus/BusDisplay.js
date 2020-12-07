@@ -11,13 +11,22 @@ export const BusDisplay = () => {
   const busCards = useSelector(selectBusCards);
 
   return (
-    <ScrollView style={{ height: '100%', marginBottom: 80 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      style={{
+        marginBottom: 100,
+        marginTop: 30,
+      }}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
         }}>
-        <View style={{ alignItems: 'center' }}>
+        <View
+          style={{
+            alignItems: 'center',
+            width: '30%',
+          }}>
           <Text style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}>
             Drink
           </Text>
@@ -25,34 +34,34 @@ export const BusDisplay = () => {
             (card, i) =>
               i % 2 === 0 &&
               i < busCards.length - 1 && (
-                <View key={i} style={[margins.mb4]}>
+                <View key={i} style={[margins.mb4, { height: 110, width: 75 }]}>
                   {card === 0 ? (
                     <SmallCard
-                      style={{ height: 110, width: 80 }}
+                      style={{ flex: 1, width: '100%' }}
                       backSide={true}
                     />
                   ) : (
-                    <SmallCard style={{ height: 110, width: 80 }} card={card} />
+                    <SmallCard style={{ flex: 1, width: '100%' }} card={card} />
                   )}
                 </View>
               )
           )}
         </View>
-        <View style={[margins.ml8, { alignItems: 'center' }]}>
+        <View style={{ alignItems: 'center', width: '30%' }}>
           <Text style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}>
             Send
           </Text>
           {busCards.map(
             (card, i) =>
               i % 2 !== 0 && (
-                <View key={i} style={[margins.mb4]}>
+                <View key={i} style={[margins.mb4, { height: 110, width: 75 }]}>
                   {card === 0 ? (
                     <SmallCard
-                      style={{ height: 110, width: 80 }}
+                      style={{ flex: 1, width: '100%' }}
                       backSide={true}
                     />
                   ) : (
-                    <SmallCard style={{ height: 110, width: 80 }} card={card} />
+                    <SmallCard style={{ flex: 1, width: '100%' }} card={card} />
                   )}
                 </View>
               )
@@ -63,14 +72,14 @@ export const BusDisplay = () => {
         {busCards.map(
           (card, i) =>
             i === busCards.length - 1 && (
-              <View key={i}>
+              <View key={i} style={[margins.mb4, { height: 110, width: 75 }]}>
                 {card === 0 ? (
                   <SmallCard
-                    style={{ height: 110, width: 80 }}
+                    style={{ flex: 1, width: '100%' }}
                     backSide={true}
                   />
                 ) : (
-                  <SmallCard style={{ height: 110, width: 80 }} card={card} />
+                  <SmallCard style={{ flex: 1, width: '100%' }} card={card} />
                 )}
               </View>
             )

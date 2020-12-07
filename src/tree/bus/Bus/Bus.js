@@ -21,7 +21,6 @@ import {
   selectPlayersFiltered,
   selectNumberOfRows,
   selectBusCards,
-  selectNumberOfJokers,
 } from '../../../features/bus/bus.store';
 import { setTurn, renewPlayers } from '../../../services/game/game.service';
 import { flipCard, finalRound } from '../../../services/bus/bus.service';
@@ -33,7 +32,6 @@ export const Bus = () => {
   const card = useSelector(selectCard);
   const rows = useSelector(selectNumberOfRows);
   const busCards = useSelector(selectBusCards);
-  const numberOfJokers = useSelector(selectNumberOfJokers);
 
   const numberOfBusCards = busCards.filter((card) => card !== 0);
 
@@ -78,7 +76,7 @@ export const Bus = () => {
 
   function goToFinalRound() {
     dispatch(renewPlayers());
-    dispatch(finalRound({ jokers: numberOfJokers }));
+    dispatch(finalRound());
     modalizeHands.current?.close();
     navigation.navigate('FinalRound');
   }

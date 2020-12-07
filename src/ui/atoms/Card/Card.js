@@ -23,7 +23,6 @@ import {
 
 export const Card = ({ card, flip, styles }) => {
   const { colors } = useTheme();
-
   var cardDisplay;
 
   const isFirstRun = useRef(true);
@@ -194,8 +193,6 @@ export const SmallCard = ({ style, card, backSide = false }) => {
           borderColor: colors.black,
           borderWidth: 1,
           borderRadius: 4,
-          width: 45,
-          height: 60,
           justifyContent: 'center',
           alignItems: 'center',
         },
@@ -222,7 +219,7 @@ export const SmallCard = ({ style, card, backSide = false }) => {
           </Text>
         </View>
       ) : card.type !== 'Joker' ? (
-        <Text style={{ color: card.color }}>
+        <Text style={{ color: card.color, textAlign: 'center' }}>
           {card.number} {card.type}
         </Text>
       ) : (

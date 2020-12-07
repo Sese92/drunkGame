@@ -1,14 +1,15 @@
-function transformToNumber(card) {
+function numberOfTheCard(card) {
+  let number = card.number;
   if (card.number === 'J') {
-    card.number = 11;
+    number = 11;
   } else if (card.number === 'Q') {
-    card.number = 12;
+    number = 12;
   } else if (card.number === 'K') {
-    card.number = 13;
+    number = 13;
   } else if (card.number === 'A') {
-    card.number = 14;
+    number = 14;
   }
-  return card;
+  return number;
 }
 
 export function renderLeftButton(hand) {
@@ -41,14 +42,14 @@ export function leftClicked(hand, card) {
   if (card.type === 'Joker') {
     return false;
   }
-  const cardNumber = transformToNumber(card).number;
+  const cardNumber = numberOfTheCard(card);
   let firstCardNumber = 0;
   let secondCardNumber = 0;
   if (hand[0]) {
-    firstCardNumber = transformToNumber(hand[0]).number;
+    firstCardNumber = numberOfTheCard(hand[0]);
   }
   if (hand[1]) {
-    secondCardNumber = hand[1] && transformToNumber(hand[1]).number;
+    secondCardNumber = hand[1] && numberOfTheCard(hand[1]);
   }
 
   switch (hand.length) {
@@ -93,14 +94,14 @@ export function middleClicked(hand, card) {
   if (card.type === 'Joker') {
     return false;
   }
-  const cardNumber = transformToNumber(card).number;
+  const cardNumber = numberOfTheCard(card);
   let firstCardNumber = 0;
   let secondCardNumber = 0;
   if (hand[0]) {
-    firstCardNumber = transformToNumber(hand[0]).number;
+    firstCardNumber = numberOfTheCard(hand[0]);
   }
   if (hand[1]) {
-    secondCardNumber = hand[1] && transformToNumber(hand[1]).number;
+    secondCardNumber = hand[1] && numberOfTheCard(hand[1]);
   }
   switch (hand.length) {
     case 1:
@@ -122,14 +123,14 @@ export function rightClicked(hand, card) {
   if (card.type === 'Joker') {
     return false;
   }
-  const cardNumber = transformToNumber(card).number;
+  const cardNumber = numberOfTheCard(card);
   let firstCardNumber = 0;
   let secondCardNumber = 0;
   if (hand[0]) {
-    firstCardNumber = transformToNumber(hand[0]).number;
+    firstCardNumber = numberOfTheCard(hand[0]);
   }
   if (hand[1]) {
-    secondCardNumber = hand[1] && transformToNumber(hand[1]).number;
+    secondCardNumber = hand[1] && numberOfTheCard(hand[1]);
   }
   switch (hand.length) {
     case 0:

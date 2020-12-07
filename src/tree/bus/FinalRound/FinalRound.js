@@ -42,17 +42,21 @@ export const FinalRound = () => {
   const [buttonClicked, saveButtonClicked] = useState('');
 
   useEffect(() => {
-    dispatch(setTurn({ turn: 0 }));
-    saveFlipCard(false);
+    if (players.length > 0) {
+      dispatch(setTurn({ turn: 0 }));
+      saveFlipCard(false);
+    }
   }, []);
+
+  var success =
+    players.length > 0 &&
+    ((buttonClicked === 'Left' && leftClicked(players[turn].hand, card)) ||
+      (buttonClicked === 'Middle' && middleClicked(players[turn].hand, card)) ||
+      (buttonClicked === 'Right' && rightClicked(players[turn].hand, card)));
 
   function nextCard() {
     saveFlipCard(false);
-    if (
-      (buttonClicked === 'Left' && leftClicked(players[turn].hand, card)) ||
-      (buttonClicked === 'Middle' && middleClicked(players[turn].hand, card)) ||
-      (buttonClicked === 'Right' && rightClicked(players[turn].hand, card))
-    ) {
+    if (success) {
       dispatch(setPlayerHand({ player: players[turn], card: card })); // Add to player hand
       dispatch(removeCard({ card: card })); // Remove from stack
       if (players[turn].hand.length === 3) {
@@ -96,15 +100,23 @@ export const FinalRound = () => {
             style={[
               flex.row,
               margins.mb6,
-              { justifyContent: 'space-around', width: '100%' },
+              {
+                justifyContent: 'space-around',
+                width: '100%',
+                height: '10%',
+              },
             ]}>
             {players[turn].hand.map(
               (card, i) =>
-                card.type !== 'Joker' && <SmallCard key={i} card={card} />
+                card.type !== 'Joker' && (
+                  <View key={i} style={{ width: '15%' }}>
+                    <SmallCard style={{ flex: 1 }} card={card} />
+                  </View>
+                )
             )}
           </View>
           <Card
-            styles={{ height: '65%', width: '90%' }}
+            styles={{ height: '55%', width: '80%' }}
             flip={flipCard}
             card={flipCard ? card : null}
           />
@@ -177,14 +189,14 @@ export const FinalRound = () => {
                   justifyContent: 'center',
                 },
               ]}>
-              <Button style={{ width: '25%' }} onPress={() => nextCard()}>
+              <Button style={[paddings.px3]} onPress={() => nextCard()}>
                 <Text
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
                   }}>
-                  Continue
+                  {success ? 'Continue' : 'Drink'}
                 </Text>
               </Button>
             </View>
@@ -197,7 +209,7 @@ export const FinalRound = () => {
             flex.centerContent,
             { backgroundColor: colors.tertiary },
           ]}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
             You have finished the game
           </Text>
           <Button

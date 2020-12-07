@@ -19,7 +19,13 @@ import { Card, SmallCard } from '../../../ui/atoms/Card';
 import { flex } from '../../../ui/style/layout';
 import { margins, paddings } from '../../../ui/style/spacing';
 
-import { renderLeftButton, renderRightButton } from '../bus.utils';
+import {
+  renderLeftButton,
+  renderRightButton,
+  leftClicked,
+  rightClicked,
+  middleClicked,
+} from '../bus.utils';
 
 export const BusElection = () => {
   const navigation = useNavigation();
@@ -33,11 +39,22 @@ export const BusElection = () => {
   const turn = useSelector(selectTurn);
 
   const [flipCard, saveFlipCard] = useState(false);
+  const [buttonClicked, saveButtonClicked] = useState('');
 
   useEffect(() => {
     dispatch(setTurn({ turn: 0 }));
     saveFlipCard(false);
   }, []);
+
+  var successSides =
+    players.length > 0 &&
+    ((buttonClicked === 'Left' && leftClicked(players[turn].hand, card)) ||
+      (buttonClicked === 'Right' && rightClicked(players[turn].hand, card)));
+
+  var successMiddle =
+    players.length > 0 &&
+    buttonClicked === 'Middle' &&
+    middleClicked(players[turn].hand, card);
 
   const onOpen = () => {
     modalizeRef.current?.open();
@@ -103,16 +120,24 @@ export const BusElection = () => {
             style={[
               flex.row,
               margins.mb6,
-              { justifyContent: 'space-around', width: '100%' },
+              {
+                justifyContent: 'space-around',
+                width: '100%',
+                height: '10%',
+              },
             ]}>
             {players[turn].hand.map(
               (card, i) =>
-                card.type !== 'Joker' && <SmallCard key={i} card={card} />
+                card.type !== 'Joker' && (
+                  <View key={i} style={{ width: '15%' }}>
+                    <SmallCard style={{ flex: 1 }} card={card} />
+                  </View>
+                )
             )}
           </View>
 
           <Card
-            styles={{ height: '65%', width: '90%' }}
+            styles={{ height: '55%', width: '80%' }}
             flip={flipCard}
             card={flipCard ? card : null}
           />
@@ -130,7 +155,10 @@ export const BusElection = () => {
               ]}>
               <Button
                 style={{ width: '25%' }}
-                onPress={() => saveFlipCard(true)}>
+                onPress={() => {
+                  saveFlipCard(true);
+                  saveButtonClicked('Left');
+                }}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -143,7 +171,10 @@ export const BusElection = () => {
               {players[turn].hand.length > 0 && players[turn].hand.length < 3 && (
                 <Button
                   style={{ width: '25%' }}
-                  onPress={() => saveFlipCard(true)}>
+                  onPress={() => {
+                    saveFlipCard(true);
+                    saveButtonClicked('Middle');
+                  }}>
                   <Text
                     style={{
                       fontSize: 20,
@@ -156,7 +187,10 @@ export const BusElection = () => {
               )}
               <Button
                 style={{ width: '25%' }}
-                onPress={() => saveFlipCard(true)}>
+                onPress={() => {
+                  saveFlipCard(true);
+                  saveButtonClicked('Right');
+                }}>
                 <Text
                   style={{
                     fontSize: 20,
@@ -185,7 +219,11 @@ export const BusElection = () => {
                       fontWeight: 'bold',
                       textAlign: 'center',
                     }}>
-                    Next!
+                    {successSides
+                      ? 'Send'
+                      : successMiddle
+                      ? 'All drink'
+                      : 'Drink'}
                   </Text>
                 </Button>
               ) : (

@@ -20,6 +20,7 @@ import {
 
 export const initialState = {
   cards: cards,
+  jokers: null,
   rows: 1,
   busCards: [],
 };
@@ -35,6 +36,7 @@ const busSlice = createSlice({
           action.meta.jokers !== 0
             ? [...cards, setJokers(action.meta.jokers)]
             : cards,
+        jokers: action.meta.jokers,
       };
     },
     [SET_NUMBER_ROWS]: (state, action) => {
@@ -57,13 +59,10 @@ const busSlice = createSlice({
         busCards: setBusCard(state.busCards.slice(), action.meta.card),
       };
     },
-    [FINAL_ROUND]: (state, action) => {
+    [FINAL_ROUND]: (state) => {
       return {
         ...state,
-        cards:
-          action.meta.jokers !== 0
-            ? [...cards, setJokers(action.meta.jokers)]
-            : cards,
+        cards: state.jokers !== 0 ? [...cards, setJokers(state.jokers)] : cards,
         busCards: [],
       };
     },
@@ -73,8 +72,6 @@ const busSlice = createSlice({
 const selectRoot = (state) => state.bus;
 
 const selectConfigRoot = (state) => state.configuration;
-
-const selectNumberOfJokers = createSelector(selectRoot, (bus) => bus.jokers);
 
 const selectNumberOfRows = createSelector(selectRoot, (bus) => bus.rows);
 
@@ -91,7 +88,6 @@ const selectPlayersFiltered = createSelector(
 );
 
 export {
-  selectNumberOfJokers,
   selectNumberOfRows,
   selectCard,
   selectBusCards,
