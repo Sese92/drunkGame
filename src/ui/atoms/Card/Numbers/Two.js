@@ -1,18 +1,28 @@
 import React from 'react';
 
-import { RFValue } from 'react-native-responsive-fontsize';
+import { View } from 'react-native';
 
-import { View, Text } from 'react-native';
+import { getIcon, actuatedNormalize } from './One';
 
 export const Two = ({ card }) => {
   return (
-    <View style={{ justifyContent: 'center' }}>
-      <Text style={{ color: card.color, fontSize: RFValue(120) }}>
-        {card.type}
-      </Text>
-      <Text style={{ color: card.color, fontSize: RFValue(120) }}>
-        {card.type}
-      </Text>
+    <View style={{ flex: 1, width: '100%' }}>
+      <View
+        style={{
+          height: '50%',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}>
+        {getIcon(card.type, actuatedNormalize(110), card.color)}
+      </View>
+      <View
+        style={{
+          height: '50%',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}>
+        {getIcon(card.type, actuatedNormalize(110), card.color)}
+      </View>
     </View>
   );
 };

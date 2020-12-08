@@ -1,57 +1,77 @@
 import React from 'react';
 
-import { RFValue } from 'react-native-responsive-fontsize';
+import { View } from 'react-native';
 
-import { View, Text } from 'react-native';
+import { getIcon, actuatedNormalize } from './One';
 
 export const Six = ({ card }) => {
   return (
-    <View
-      style={{
-        width: '100%',
-        height: '100%',
-      }}>
+    <View style={{ flex: 1, width: '100%' }}>
       <View
         style={{
-          justifyContent: 'space-between',
-          flex: 1,
           flexDirection: 'row',
-          alignItems: 'center',
+          height: '33%',
         }}>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-start',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-end',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
       </View>
       <View
         style={{
-          justifyContent: 'space-between',
-          flex: 1,
           flexDirection: 'row',
-          alignItems: 'center',
+          height: '33%',
         }}>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-start',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-end',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
       </View>
       <View
         style={{
-          justifyContent: 'space-between',
-          flex: 1,
-          alignItems: 'center',
           flexDirection: 'row',
+          height: '33%',
         }}>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
-        <Text style={{ color: card.color, fontSize: RFValue(80) }}>
-          {card.type}
-        </Text>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-start',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '50%',
+            alignItems: 'flex-end',
+          }}>
+          {getIcon(card.type, actuatedNormalize(80), card.color)}
+        </View>
       </View>
     </View>
   );

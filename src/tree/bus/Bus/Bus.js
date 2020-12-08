@@ -6,13 +6,14 @@ import { useTheme, useNavigation } from '@react-navigation/native';
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { FloatingBar } from '../../../ui/atoms/FloatingBar';
 import { PlayersHands } from './PlayersHands';
 import { BusDisplay } from './BusDisplay';
 
 import { RoundButton } from '../../../ui/atoms/RoundButton/RoundButton';
 import { margins } from '../../../ui/style/spacing';
-import { IconCards } from '../../../ui/zicons/Cards';
 import { Button } from '../../../ui/atoms/Button';
 import { SmallCard } from '../../../ui/atoms/Card';
 
@@ -128,10 +129,7 @@ export const Bus = () => {
       <FloatingBar style={{ left: 'auto', bottom: 140 }}>
         <View style={[margins.mx4]}>
           <RoundButton onPress={() => onOpenHands()}>
-            <IconCards
-              width={24}
-              height={24}
-              iconLineColor={colors.info}></IconCards>
+            <Icon name="cards" size={23} color={colors.info} />
           </RoundButton>
         </View>
       </FloatingBar>
