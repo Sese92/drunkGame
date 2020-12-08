@@ -61,6 +61,7 @@ export const GameConfig = () => {
       ]}>
       <View style={{ flexDirection: 'row' }}>
         <Button
+          shadow="none"
           onPress={() => navigation.navigate('Main')}
           bgColor="transparent"
           style={{ height: 30 }}>

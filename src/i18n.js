@@ -11,8 +11,8 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'es', // for now app just works in spanish but is ready to add english if required
-  supportedLngs: 'es',
+  lng: 'en',
+  supportedLngs: 'en',
   interpolation: {
     escapeValue: false,
   },

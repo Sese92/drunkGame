@@ -8,6 +8,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { selectGame } from '../services/game/game.service';
 
 import { Button } from '../ui/atoms/Button';
+import { Translation } from '../ui/atoms/Translation';
 
 import { flex } from '../ui/style/layout';
 import { margins, paddings } from '../ui/style/spacing';
@@ -25,10 +26,10 @@ export const Main = () => {
         { backgroundColor: colors.primary },
       ]}>
       <Text style={{ fontSize: 40, color: colors.white, fontWeight: 'bold' }}>
-        Let´s get drunk!
+        <Translation tkey="welcome" />
       </Text>
       <Text style={[margins.mt4, { fontSize: 20, color: colors.white }]}>
-        How do you want to do it?
+        <Translation tkey="how_to" />
       </Text>
       <View style={[margins.mt8]}>
         <Button
@@ -42,7 +43,7 @@ export const Main = () => {
               fontWeight: 'bold',
               fontSize: 20,
             }}>
-            Jota
+            <Translation tkey="j" />
           </Text>
         </Button>
         <Button
@@ -57,7 +58,7 @@ export const Main = () => {
               fontWeight: 'bold',
               fontSize: 20,
             }}>
-            Autobús
+            <Translation tkey="bus" />
           </Text>
         </Button>
       </View>
