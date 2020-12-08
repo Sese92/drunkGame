@@ -1,3 +1,13 @@
+export function numberOfCards(cards) {
+  let numberOfCards = 0;
+  for (let i = 0; i < cards.length; i++) {
+    for (let j = 0; j < cards[i].cards.length; j++) {
+      numberOfCards++;
+    }
+  }
+  return numberOfCards;
+}
+
 export function setJokers(number) {
   const jokers = [];
   for (let i = 0; i < number; i++) {
@@ -34,7 +44,12 @@ export function removeCard(cards, card) {
   };
   if (goodCards[index].cards.length === 0) {
     const car = goodCards.filter((typ) => typ.type !== type.type);
-    return car;
+    console.log(car.length);
+    if (car.length > 0) {
+      return car;
+    } else {
+      return allCards;
+    }
   } else {
     return goodCards;
   }
@@ -111,7 +126,7 @@ export function clearHand(players, player) {
   return goodPlayers;
 }
 
-export const cards = [
+export const allCards = [
   {
     type: '♥',
     color: 'red',

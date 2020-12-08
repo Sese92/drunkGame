@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 import { View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectNumberOfCards } from '../../../features/bus/bus.store';
 import { setNumberOfRows, removeCard } from '../../../services/bus/bus.service';
 
 import { QuantityButtons } from '../../../ui/organisms/QuantityButtons';
@@ -13,6 +14,7 @@ import { Button } from '../../../ui/atoms/Button';
 export const RowsModal = ({ navigation, onClose, lastCard }) => {
   const [localRows, saveRows] = useState(1);
   const dispatch = useDispatch();
+  const numberOfCardsRemain = useSelector(selectNumberOfCards);
 
   function nextScreen() {
     dispatch(setNumberOfRows({ rows: localRows }));
@@ -34,6 +36,7 @@ export const RowsModal = ({ navigation, onClose, lastCard }) => {
 
       <View style={[margins.mb8]}>
         <QuantityButtons
+          max={numberOfCardsRemain / 2 - 1}
           value={localRows.toString()}
           addQuantity={() => saveRows(localRows + 1)}
           subQuantity={() => saveRows(localRows - 1)}

@@ -14,7 +14,10 @@ import {
   selectTurn,
   selectPlayers,
 } from '../../../features/gameConfiguration/configuration.store';
-import { selectCard } from '../../../features/bus/bus.store';
+import {
+  selectCard,
+  selectNumberOfCards,
+} from '../../../features/bus/bus.store';
 import { Button } from '../../../ui/atoms/Button';
 import { Card, SmallCard } from '../../../ui/atoms/Card';
 import { flex } from '../../../ui/style/layout';
@@ -38,6 +41,8 @@ export const FinalRound = () => {
   const players = useSelector(selectPlayers);
   const turn = useSelector(selectTurn);
 
+  const numberOfCards = useSelector(selectNumberOfCards);
+
   const [flipCard, saveFlipCard] = useState(false);
   const [buttonClicked, saveButtonClicked] = useState('');
 
@@ -57,10 +62,18 @@ export const FinalRound = () => {
   function nextCard() {
     saveFlipCard(false);
     if (success) {
-      dispatch(setPlayerHand({ player: players[turn], card: card })); // Add to player hand
+      if (players[turn].hand.length < 3) {
+        dispatch(setPlayerHand({ player: players[turn], card: card })); // Add to player hand
+      }
       dispatch(removeCard({ card: card })); // Remove from stack
       if (players[turn].hand.length === 3) {
-        dispatch(removePlayer({ player: players[turn] })); // Winner, remove from stack
+        let removedPlayer = players[turn];
+        if (turn < players.length - 1) {
+          dispatch(setTurn({ turn: turn + 1 }));
+        } else {
+          dispatch(setTurn({ turn: 0 }));
+        }
+        dispatch(removePlayer({ player: removedPlayer })); // Winner, remove from stack
       }
     } else {
       dispatch(removeCard({ card: card })); // Remove from stack
@@ -200,6 +213,11 @@ export const FinalRound = () => {
                 </Text>
               </Button>
             </View>
+          )}
+          {numberOfCards === 1 && (
+            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 16 }}>
+              Last card before restart
+            </Text>
           )}
         </SafeAreaView>
       ) : (

@@ -15,11 +15,12 @@ import {
   removeCard,
   setBusCard,
   selectPlayersByCard,
-  cards,
+  allCards,
+  numberOfCards,
 } from './bus.utils';
 
 export const initialState = {
-  cards: cards,
+  cards: allCards,
   jokers: null,
   rows: 1,
   busCards: [],
@@ -34,8 +35,8 @@ const busSlice = createSlice({
         ...state,
         cards:
           action.meta.jokers !== 0
-            ? [...cards, setJokers(action.meta.jokers)]
-            : cards,
+            ? [...allCards, setJokers(action.meta.jokers)]
+            : allCards,
         jokers: action.meta.jokers,
       };
     },
@@ -62,7 +63,10 @@ const busSlice = createSlice({
     [FINAL_ROUND]: (state) => {
       return {
         ...state,
-        cards: state.jokers !== 0 ? [...cards, setJokers(state.jokers)] : cards,
+        cards:
+          state.jokers !== 0
+            ? [...allCards, setJokers(state.jokers)]
+            : allCards,
         busCards: [],
       };
     },
@@ -74,6 +78,10 @@ const selectRoot = (state) => state.bus;
 const selectConfigRoot = (state) => state.configuration;
 
 const selectNumberOfRows = createSelector(selectRoot, (bus) => bus.rows);
+
+const selectNumberOfCards = createSelector(selectRoot, (bus) =>
+  numberOfCards(bus.cards)
+);
 
 const selectCard = createSelector(selectRoot, (bus) =>
   selectRandomCard(bus.cards)
@@ -92,6 +100,7 @@ export {
   selectCard,
   selectBusCards,
   selectPlayersFiltered,
+  selectNumberOfCards,
 };
 
 export const { actions, reducer } = busSlice;

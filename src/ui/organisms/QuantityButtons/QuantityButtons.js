@@ -10,6 +10,7 @@ import { IconPlus } from '../../zicons/Plus';
 export const QuantityButtons = ({
   value,
   min = 1,
+  max = 99,
   addQuantity,
   subQuantity,
 }) => {
@@ -65,7 +66,7 @@ export const QuantityButtons = ({
 
       <TouchableOpacity>
         <RoundButton
-          disabled={value > 98}
+          disabled={value >= max}
           onPress={addQuantity}
           bgColor={colors.info}>
           <IconPlus
