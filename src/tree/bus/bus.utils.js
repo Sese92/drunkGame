@@ -159,7 +159,7 @@ export function rightClicked(hand, card) {
           return false;
         }
       } else {
-        return false;
+        return true;
       }
     case 3:
       if (hand.find((handCard) => handCard.type === card.type) === undefined) {
