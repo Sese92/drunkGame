@@ -1,57 +1,37 @@
 export function numberOfCards(cards) {
   let numberOfCards = 0;
   for (let i = 0; i < cards.length; i++) {
-    for (let j = 0; j < cards[i].cards.length; j++) {
-      numberOfCards++;
-    }
+    numberOfCards++;
   }
   return numberOfCards;
 }
 
 export function setJokers(number) {
-  const jokers = [];
+  let jokers = [];
   for (let i = 0; i < number; i++) {
-    jokers.push('Joker ' + (i + 1));
+    jokers.push({ type: 'Joker', number: 'Joker' });
   }
-  return { type: 'Joker', cards: jokers };
+  return jokers;
 }
 
 export function selectRandomCard(cards) {
-  let type = cards[Math.floor(Math.random() * cards.length)];
-  let number = type.cards[Math.floor(Math.random() * type.cards.length)];
-  let card = { type: type.type, number, color: type.color };
+  let card = cards[Math.floor(Math.random() * cards.length)];
   return card;
 }
 
-export function removeCard(cards, card) {
+export function removeCard(cards, card, numberOfJokers) {
   const string = JSON.stringify(cards);
   const goodCards = JSON.parse(string);
-  const type = goodCards.find((type) => type.type === card.type);
-  var cardsByType;
-  cardsByType = type.cards.filter((c) => c !== card.number);
-  if (type.type === 'Joker') {
-    cardsByType = type.cards.slice(0, type.cards.length - 1);
-  }
-  var index = goodCards
-    .map(function (e) {
-      return e.type;
-    })
-    .indexOf(type.type);
-  goodCards[index] = {
-    type: type.type,
-    color: type.color,
-    cards: cardsByType,
-  };
-  if (goodCards[index].cards.length === 0) {
-    const car = goodCards.filter((typ) => typ.type !== type.type);
-    console.log(car.length);
-    if (car.length > 0) {
-      return car;
-    } else {
-      return allCards;
-    }
+
+  const filtered = goodCards.filter((c) => c !== card);
+
+  if (filtered.length > 0) {
+    return filtered;
   } else {
-    return goodCards;
+    for (let i = 0; i < numberOfJokers; i++) {
+      allCards.push({ type: 'Joker', number: i + 1 });
+    }
+    return allCards;
   }
 }
 
@@ -127,24 +107,56 @@ export function clearHand(players, player) {
 }
 
 export const allCards = [
-  {
-    type: '♥',
-    color: 'red',
-    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
-  },
-  {
-    type: '♦',
-    color: 'red',
-    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
-  },
-  {
-    type: '♣',
-    color: 'black',
-    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
-  },
-  {
-    type: '♠',
-    color: 'black',
-    cards: ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'],
-  },
+  { type: '♥', color: 'red', number: 'A' },
+  { type: '♥', color: 'red', number: 2 },
+  { type: '♥', color: 'red', number: 3 },
+  { type: '♥', color: 'red', number: 4 },
+  { type: '♥', color: 'red', number: 5 },
+  { type: '♥', color: 'red', number: 6 },
+  { type: '♥', color: 'red', number: 7 },
+  { type: '♥', color: 'red', number: 8 },
+  { type: '♥', color: 'red', number: 9 },
+  { type: '♥', color: 'red', number: 10 },
+  { type: '♥', color: 'red', number: 'J' },
+  { type: '♥', color: 'red', number: 'Q' },
+  { type: '♥', color: 'red', number: 'K' },
+  { type: '♦', color: 'red', number: 'A' },
+  { type: '♦', color: 'red', number: 2 },
+  { type: '♦', color: 'red', number: 3 },
+  { type: '♦', color: 'red', number: 4 },
+  { type: '♦', color: 'red', number: 5 },
+  { type: '♦', color: 'red', number: 6 },
+  { type: '♦', color: 'red', number: 7 },
+  { type: '♦', color: 'red', number: 8 },
+  { type: '♦', color: 'red', number: 9 },
+  { type: '♦', color: 'red', number: 10 },
+  { type: '♦', color: 'red', number: 'J' },
+  { type: '♦', color: 'red', number: 'Q' },
+  { type: '♦', color: 'red', number: 'K' },
+  { type: '♣', color: 'black', number: 'A' },
+  { type: '♣', color: 'black', number: 2 },
+  { type: '♣', color: 'black', number: 3 },
+  { type: '♣', color: 'black', number: 4 },
+  { type: '♣', color: 'black', number: 5 },
+  { type: '♣', color: 'black', number: 6 },
+  { type: '♣', color: 'black', number: 7 },
+  { type: '♣', color: 'black', number: 8 },
+  { type: '♣', color: 'black', number: 9 },
+  { type: '♣', color: 'black', number: 10 },
+  { type: '♣', color: 'black', number: 'J' },
+  { type: '♣', color: 'black', number: 'Q' },
+  { type: '♣', color: 'black', number: 'K' },
+  { type: '♠', color: 'black', number: 'A' },
+  { type: '♠', color: 'black', number: 2 },
+  { type: '♠', color: 'black', number: 3 },
+  { type: '♠', color: 'black', number: 4 },
+  { type: '♠', color: 'black', number: 5 },
+  { type: '♠', color: 'black', number: 6 },
+  { type: '♠', color: 'black', number: 7 },
+  { type: '♠', color: 'black', number: 8 },
+  { type: '♠', color: 'black', number: 9 },
+  { type: '♠', color: 'black', number: 10 },
+  { type: '♠', color: 'black', number: 'J' },
+  { type: '♠', color: 'black', number: 'Q' },
+  { type: '♠', color: 'black', number: 'K' },
 ];

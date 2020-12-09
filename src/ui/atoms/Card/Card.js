@@ -25,6 +25,7 @@ export const Card = ({ card, flip, styles }) => {
   const { colors } = useTheme();
   var cardDisplay;
 
+  console.log(card);
   const isFirstRun = useRef(true);
   useEffect(() => {
     if (isFirstRun.current) {
@@ -35,9 +36,6 @@ export const Card = ({ card, flip, styles }) => {
   }, [flip]);
 
   function RenderCard() {
-    if (card.type === 'Joker') {
-      card.number = 'Joker';
-    }
     switch (card.number) {
       case 'A':
         return <One card={card} />;

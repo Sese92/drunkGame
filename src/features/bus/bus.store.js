@@ -21,7 +21,7 @@ import {
 
 export const initialState = {
   cards: allCards,
-  jokers: null,
+  jokers: 0,
   rows: 1,
   busCards: [],
 };
@@ -35,7 +35,7 @@ const busSlice = createSlice({
         ...state,
         cards:
           action.meta.jokers !== 0
-            ? [...allCards, setJokers(action.meta.jokers)]
+            ? [...allCards, ...setJokers(action.meta.jokers)]
             : allCards,
         jokers: action.meta.jokers,
       };
@@ -50,7 +50,7 @@ const busSlice = createSlice({
     [REMOVE_CARD]: (state, action) => {
       return {
         ...state,
-        cards: removeCard(state.cards.slice(), action.meta.card),
+        cards: removeCard(state.cards.slice(), action.meta.card, state.jokers),
       };
     },
     [FLIP_CARD]: (state, action) => {
