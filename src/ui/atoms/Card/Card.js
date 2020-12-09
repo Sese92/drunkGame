@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 import { StyleSheet, View, Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CardFlip from 'react-native-card-flip';
 
 import { margins, paddings } from '../../style/spacing';
+import { actuatedNormalize } from './Numbers/One';
 
 import {
   One,
@@ -64,7 +64,11 @@ export const Card = ({ card, flip, styles }) => {
       default:
         return (
           <Text
-            style={{ fontSize: 180, color: card.color, fontWeight: 'bold' }}>
+            style={{
+              fontSize: actuatedNormalize(180),
+              color: card.color,
+              fontWeight: 'bold',
+            }}>
             {card.number}
           </Text>
         );
@@ -116,9 +120,8 @@ export const Card = ({ card, flip, styles }) => {
             <Text
               style={{
                 position: 'absolute',
-                top: 1,
-                left: 8,
-                fontSize: RFValue(26),
+                left: 4,
+                fontSize: actuatedNormalize(25),
                 fontWeight: 'bold',
                 color: card.color,
               }}>
@@ -146,10 +149,10 @@ export const Card = ({ card, flip, styles }) => {
             <Text
               style={{
                 position: 'absolute',
-                fontSize: RFValue(26),
+                fontSize: actuatedNormalize(25),
                 fontWeight: 'bold',
-                bottom: 1,
-                right: 8,
+                bottom: 0,
+                right: 4,
                 color: card.color,
               }}>
               {card.type !== 'Joker' && card.number}
