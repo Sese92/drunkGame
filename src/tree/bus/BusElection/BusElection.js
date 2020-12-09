@@ -223,6 +223,8 @@ export const BusElection = () => {
                       ? 'Send'
                       : successMiddle
                       ? 'All drink'
+                      : card.type === 'Joker'
+                      ? 'Shot!'
                       : 'Drink'}
                   </Text>
                 </Button>

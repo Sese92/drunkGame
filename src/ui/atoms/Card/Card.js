@@ -24,8 +24,6 @@ import {
 export const Card = ({ card, flip, styles }) => {
   const { colors } = useTheme();
   var cardDisplay;
-
-  console.log(card);
   const isFirstRun = useRef(true);
   useEffect(() => {
     if (isFirstRun.current) {

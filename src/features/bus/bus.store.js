@@ -65,7 +65,7 @@ const busSlice = createSlice({
         ...state,
         cards:
           state.jokers !== 0
-            ? [...allCards, setJokers(state.jokers)]
+            ? [...allCards, ...setJokers(state.jokers)]
             : allCards,
         busCards: [],
       };

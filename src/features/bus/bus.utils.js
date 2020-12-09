@@ -22,14 +22,20 @@ export function selectRandomCard(cards) {
 export function removeCard(cards, card, numberOfJokers) {
   const string = JSON.stringify(cards);
   const goodCards = JSON.parse(string);
-
-  const filtered = goodCards.filter((c) => c !== card);
-
+  var filtered = [];
+  if (card.type !== 'Joker') {
+    filtered = goodCards.filter(
+      (c) => c.type !== card.type || c.number !== card.number
+    );
+  } else {
+    goodCards.pop();
+    filtered = goodCards;
+  }
   if (filtered.length > 0) {
     return filtered;
   } else {
     for (let i = 0; i < numberOfJokers; i++) {
-      allCards.push({ type: 'Joker', number: i + 1 });
+      allCards.push({ type: 'Joker', number: 'Joker' });
     }
     return allCards;
   }

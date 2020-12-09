@@ -8,6 +8,7 @@ import {
   removeCard,
   setPlayerHand,
   removePlayer,
+  finalRound,
 } from '../../../services/bus/bus.service';
 import { setTurn } from '../../../services/game/game.service';
 import {
@@ -42,7 +43,6 @@ export const FinalRound = () => {
   const turn = useSelector(selectTurn);
 
   const numberOfCards = useSelector(selectNumberOfCards);
-
   const [flipCard, saveFlipCard] = useState(false);
   const [buttonClicked, saveButtonClicked] = useState('');
 
@@ -61,19 +61,20 @@ export const FinalRound = () => {
 
   function nextCard() {
     saveFlipCard(false);
+    if (numberOfCards === 1) {
+      dispatch(finalRound());
+    }
     if (success) {
       if (players[turn].hand.length < 3) {
         dispatch(setPlayerHand({ player: players[turn], card: card })); // Add to player hand
       }
       dispatch(removeCard({ card: card })); // Remove from stack
       if (players[turn].hand.length === 3) {
-        let removedPlayer = players[turn];
-        if (turn < players.length - 1) {
-          dispatch(setTurn({ turn: turn + 1 }));
-        } else {
+        let playerToRemove = players[turn];
+        if (turn === players.length - 1) {
           dispatch(setTurn({ turn: 0 }));
         }
-        dispatch(removePlayer({ player: removedPlayer })); // Winner, remove from stack
+        dispatch(removePlayer({ player: playerToRemove })); // Winner, remove from stack
       }
     } else {
       dispatch(removeCard({ card: card })); // Remove from stack
@@ -209,7 +210,11 @@ export const FinalRound = () => {
                     fontWeight: 'bold',
                     textAlign: 'center',
                   }}>
-                  {success ? 'Continue' : 'Drink'}
+                  {success
+                    ? 'Continue'
+                    : card.type === 'Joker'
+                    ? 'Shot!'
+                    : 'Drink'}
                 </Text>
               </Button>
             </View>
