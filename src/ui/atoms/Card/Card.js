@@ -120,6 +120,7 @@ export const Card = ({ card, flip, styles }) => {
             <Text
               style={{
                 position: 'absolute',
+                top: 1,
                 left: 4,
                 fontSize: actuatedNormalize(25),
                 fontWeight: 'bold',
@@ -151,7 +152,7 @@ export const Card = ({ card, flip, styles }) => {
                 position: 'absolute',
                 fontSize: actuatedNormalize(25),
                 fontWeight: 'bold',
-                bottom: 0,
+                bottom: 1,
                 right: 4,
                 color: card.color,
               }}>
