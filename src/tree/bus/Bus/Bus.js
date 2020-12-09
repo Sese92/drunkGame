@@ -67,8 +67,8 @@ export const Bus = () => {
   }
 
   function formButtonTitle() {
-    if (rows * 2 === numberOfBusCards.length) {
-      return 'Shot!';
+    if (rows * 2 === numberOfBusCards.length || card.type === 'Joker') {
+      return 'Shot';
     }
     const title = (numberOfBusCards.length + 1) % 2 === 1 ? 'Drink' : 'Send';
     const number = Math.ceil((numberOfBusCards.length + 1) / 2);
