@@ -222,9 +222,21 @@ export const SmallCard = ({ style, card, backSide = false }) => {
           </Text>
         </View>
       ) : card.type !== 'Joker' ? (
-        <Text style={{ color: card.color, textAlign: 'center' }}>
-          {card.number} {card.type}
-        </Text>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              color: card.color,
+              textAlign: 'center',
+              fontSize: actuatedNormalize(15),
+            }}>
+            {card.number} {card.type}
+          </Text>
+        </View>
       ) : (
         <Joker width={60} height={'75%'} />
       )}
