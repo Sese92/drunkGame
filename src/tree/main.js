@@ -30,6 +30,8 @@ export const Main = () => {
       ]}>
       <DropDownPicker
         activeLabelStyle={{ color: colors.primary }}
+        labelStyle={{ color: colors.gray }}
+        selectedLabelStyle={{ color: colors.primary }}
         items={[
           {
             label: 'English',
@@ -43,7 +45,7 @@ export const Main = () => {
         defaultValue={i18n.language}
         containerStyle={{
           height: 40,
-          width: '22%',
+          width: '30%',
           position: 'absolute',
           top: '6%',
           alignSelf: 'flex-end',
@@ -57,7 +59,12 @@ export const Main = () => {
       />
       <Text
         text="welcome"
-        style={{ fontSize: 40, color: colors.white, fontWeight: 'bold' }}
+        style={{
+          fontSize: 40,
+          color: colors.white,
+          fontWeight: 'bold',
+          textAlign: 'center',
+        }}
       />
       <Text
         text="how_to"
