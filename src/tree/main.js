@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { SafeAreaView, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useTranslation } from 'react-i18next';
 
 import { useNavigation, useTheme } from '@react-navigation/native';
 
@@ -20,6 +21,7 @@ export const Main = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView
@@ -34,11 +36,11 @@ export const Main = () => {
         selectedLabelStyle={{ color: colors.primary }}
         items={[
           {
-            label: 'English',
+            label: t('languages.english'),
             value: 'en',
           },
           {
-            label: 'Spanish',
+            label: t('languages.spanish'),
             value: 'es',
           },
         ]}

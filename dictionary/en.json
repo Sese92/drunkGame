@@ -5,6 +5,10 @@
     "j": "J",
     "bus": "Bus game",
     "continue": "Continue",
+    "languages": {
+      "english": "English",
+      "spanish": "Spanish"
+    },
     "game_configuration": {
       "nb_players": "Number of players",
       "nb_jokers": "Number of jokers"

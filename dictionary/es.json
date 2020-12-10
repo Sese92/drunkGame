@@ -5,9 +5,13 @@
     "j": "Jota",
     "bus": "Autobús",
     "continue": "Continuar",
+    "languages": {
+      "english": "Inglés",
+      "spanish": "Español"
+    },
     "game_configuration": {
       "nb_players": "Número de jugadores",
-      "nb_jokers": "Número de jokers"
+      "nb_jokers": "Número de comodines"
     }
   }
 }
