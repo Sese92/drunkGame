@@ -3,6 +3,11 @@
     "welcome": "¡A emborracharse!",
     "how_to": "¿Cómo quieres hacerlo?",
     "j": "Jota",
-    "bus": "Autobús"
+    "bus": "Autobús",
+    "continue": "Continuar",
+    "game_configuration": {
+      "nb_players": "Número de jugadores",
+      "nb_jokers": "Número de jokers"
+    }
   }
 }

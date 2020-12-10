@@ -3,6 +3,11 @@
     "welcome": "Let´s get drunk!",
     "how_to": "How do you want to do it?",
     "j": "J",
-    "bus": "Bus game"
+    "bus": "Bus game",
+    "continue": "Continue",
+    "game_configuration": {
+      "nb_players": "Number of players",
+      "nb_jokers": "Number of jokers"
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text, Platform } from 'react-native';
+import { SafeAreaView, View, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { Portal } from 'react-native-portalize';
@@ -12,6 +12,7 @@ import { setNumberOfJokers } from '../../services/bus/bus.service';
 import { flex } from '../../ui/style/layout';
 import { margins } from '../../ui/style/spacing';
 import { QuantityButtons } from '../../ui/organisms/QuantityButtons';
+import { Text } from '../../ui/atoms/Text';
 import { FloatingBar } from '../../ui/atoms/FloatingBar';
 import { Button } from '../../ui/atoms/Button';
 import { IconArrow } from '../../ui/zicons/Arrow';
@@ -70,18 +71,19 @@ export const GameConfig = () => {
       </View>
 
       <View style={[margins.mx6]}>
-        <Text style={{ textAlign: 'center', fontSize: 26, fontWeight: 'bold' }}>
-          {game}
-        </Text>
+        <Text
+          text={game === 'Jota' ? 'j' : 'bus'}
+          style={{ textAlign: 'center', fontSize: 26, fontWeight: 'bold' }}
+        />
 
         <View style={[margins.mt8]}>
           <Text
+            text="game_configuration.nb_players"
             style={[
               margins.mb3,
               { textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
-            ]}>
-            Number of players
-          </Text>
+            ]}
+          />
 
           <View style={{ alignSelf: 'center' }}>
             <QuantityButtons
@@ -96,12 +98,12 @@ export const GameConfig = () => {
         <View>
           <View style={[margins.mt8]}>
             <Text
+              text="game_configuration.nb_jokers"
               style={[
                 margins.mb3,
                 { textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
-              ]}>
-              Number of jokers 😏
-            </Text>
+              ]}
+            />
 
             <View style={{ alignSelf: 'center' }}>
               <QuantityButtons
@@ -118,7 +120,9 @@ export const GameConfig = () => {
       <FloatingBar>
         <View style={[margins.mx4]}>
           <Button onPress={() => nextScreen()}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Continue</Text>
+            <Text
+              text="continue"
+              style={{ fontSize: 20, fontWeight: 'bold' }}></Text>
           </Button>
         </View>
       </FloatingBar>
