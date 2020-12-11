@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text as RNText } from 'react-native';
 import { useTheme, useNavigation } from '@react-navigation/native';
 
 import {
@@ -19,6 +19,7 @@ import {
   selectCard,
   selectNumberOfCards,
 } from '../../../features/bus/bus.store';
+import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 import { Card, SmallCard } from '../../../ui/atoms/Card';
 import { flex } from '../../../ui/style/layout';
@@ -98,7 +99,7 @@ export const FinalRound = () => {
             flex.centerContent,
             { backgroundColor: colors.tertiary },
           ]}>
-          <Text
+          <RNText
             style={[
               margins.mb2,
               {
@@ -109,7 +110,7 @@ export const FinalRound = () => {
               },
             ]}>
             {players[turn].name}
-          </Text>
+          </RNText>
           <View
             style={[
               flex.row,
@@ -152,13 +153,15 @@ export const FinalRound = () => {
                   saveButtonClicked('Left');
                 }}>
                 <Text
+                  text={
+                    'bus_game.options.' + renderLeftButton(players[turn].hand)
+                  }
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
-                  {renderLeftButton(players[turn].hand)}
-                </Text>
+                  }}
+                />
               </Button>
               {players[turn].hand.length > 0 && players[turn].hand.length < 3 && (
                 <Button
@@ -168,13 +171,13 @@ export const FinalRound = () => {
                     saveButtonClicked('Middle');
                   }}>
                   <Text
+                    text="bus_game.options.same"
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                    }}>
-                    Same
-                  </Text>
+                    }}
+                  />
                 </Button>
               )}
               <Button
@@ -184,13 +187,15 @@ export const FinalRound = () => {
                   saveButtonClicked('Right');
                 }}>
                 <Text
+                  text={
+                    'bus_game.options.' + renderRightButton(players[turn].hand)
+                  }
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
-                  {renderRightButton(players[turn].hand)}
-                </Text>
+                  }}
+                />
               </Button>
             </View>
           ) : (
@@ -205,24 +210,27 @@ export const FinalRound = () => {
               ]}>
               <Button style={[paddings.px3]} onPress={() => nextCard()}>
                 <Text
+                  text={
+                    success
+                      ? 'continue'
+                      : card.type === 'Joker'
+                      ? 'bus_game.shot'
+                      : 'bus_game.drink'
+                  }
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
-                  {success
-                    ? 'Continue'
-                    : card.type === 'Joker'
-                    ? 'Shot!'
-                    : 'Drink'}
-                </Text>
+                  }}
+                />
               </Button>
             </View>
           )}
           {numberOfCards === 1 && (
-            <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 16 }}>
-              Last card before restart
-            </Text>
+            <Text
+              text="bus_game.last_card"
+              style={{ marginTop: 20, fontWeight: 'bold', fontSize: 16 }}
+            />
           )}
         </SafeAreaView>
       ) : (
@@ -232,20 +240,21 @@ export const FinalRound = () => {
             flex.centerContent,
             { backgroundColor: colors.tertiary },
           ]}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
-            You have finished the game
-          </Text>
+          <Text
+            text="bus_game.game_finished"
+            style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}
+          />
           <Button
             style={[paddings.px3]}
             onPress={() => navigation.navigate('Main')}>
             <Text
+              text="play_again"
               style={{
                 fontSize: 20,
                 fontWeight: 'bold',
                 textAlign: 'center',
-              }}>
-              Play again!
-            </Text>
+              }}
+            />
           </Button>
         </SafeAreaView>
       )}

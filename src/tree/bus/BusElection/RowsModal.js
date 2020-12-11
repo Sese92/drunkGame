@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectNumberOfCards } from '../../../features/bus/bus.store';
@@ -9,6 +9,7 @@ import { setNumberOfRows, removeCard } from '../../../services/bus/bus.service';
 import { QuantityButtons } from '../../../ui/organisms/QuantityButtons';
 
 import { margins } from '../../../ui/style/spacing';
+import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 
 export const RowsModal = ({ navigation, onClose, lastCard }) => {
@@ -27,12 +28,12 @@ export const RowsModal = ({ navigation, onClose, lastCard }) => {
   return (
     <View style={[margins.m10, { alignSelf: 'center' }]}>
       <Text
+        text="bus_game.nb_rows"
         style={[
           margins.mb3,
           { textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
-        ]}>
-        Number of rows
-      </Text>
+        ]}
+      />
 
       <View style={[margins.mb8]}>
         <QuantityButtons
@@ -44,7 +45,7 @@ export const RowsModal = ({ navigation, onClose, lastCard }) => {
       </View>
 
       <Button onPress={() => nextScreen()}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Continue</Text>
+        <Text text="continue" style={{ fontSize: 16, fontWeight: 'bold' }} />
       </Button>
     </View>
   );

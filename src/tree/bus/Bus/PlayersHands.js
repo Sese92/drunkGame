@@ -2,9 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
 
-import { View, Text } from 'react-native';
+import { View, Text as RNText } from 'react-native';
 
 import { SmallCard } from '../../../ui/atoms/Card';
+import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 
 import { flex } from '../../../ui/style/layout';
@@ -31,9 +32,9 @@ export const PlayersHands = ({
       {players.map((player, i) => (
         <View key={i}>
           <View style={[margins.my4]}>
-            <Text style={[margins.mb3, { fontSize: 22, fontWeight: 'bold' }]}>
+            <RNText style={[margins.mb3, { fontSize: 22, fontWeight: 'bold' }]}>
               {player.name}
-            </Text>
+            </RNText>
             <View
               style={[
                 flex.row,
@@ -42,13 +43,13 @@ export const PlayersHands = ({
               {player.hand.length === 0 ? (
                 <View style={{ justifyContent: 'center' }}>
                   <Text
+                    text="bus_game.no_cards"
                     style={{
                       fontWeight: 'bold',
                       fontSize: 16,
                       color: colors.gray,
-                    }}>
-                    Without cards
-                  </Text>
+                    }}
+                  />
                 </View>
               ) : (
                 player.hand.map(
@@ -69,9 +70,10 @@ export const PlayersHands = ({
                   onPress={() => {
                     dispatch(removeFromHand({ player: player, card: card }));
                   }}>
-                  <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-                    Place card
-                  </Text>
+                  <Text
+                    text="bus_game.place"
+                    style={{ fontWeight: 'bold', fontSize: 14 }}
+                  />
                 </Button>
               </View>
             )}
@@ -88,9 +90,10 @@ export const PlayersHands = ({
       ))}
       {finalRound && (
         <Button onPress={toFinalRound}>
-          <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-            Go to final round
-          </Text>
+          <Text
+            text="bus_game.to_final"
+            style={{ fontWeight: 'bold', fontSize: 14 }}
+          />
         </Button>
       )}
     </View>

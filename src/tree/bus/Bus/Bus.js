@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text as RNText } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme, useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
@@ -12,6 +13,7 @@ import { FloatingBar } from '../../../ui/atoms/FloatingBar';
 import { PlayersHands } from './PlayersHands';
 import { BusDisplay } from './BusDisplay';
 
+import { Text } from '../../../ui/atoms/Text';
 import { RoundButton } from '../../../ui/atoms/RoundButton/RoundButton';
 import { margins } from '../../../ui/style/spacing';
 import { Button } from '../../../ui/atoms/Button';
@@ -33,6 +35,7 @@ export const Bus = () => {
   const card = useSelector(selectCard);
   const rows = useSelector(selectNumberOfRows);
   const busCards = useSelector(selectBusCards);
+  const { t } = useTranslation();
 
   const numberOfBusCards = busCards.filter((card) => card !== 0);
 
@@ -68,9 +71,12 @@ export const Bus = () => {
 
   function formButtonTitle() {
     if (rows * 2 === numberOfBusCards.length || card.type === 'Joker') {
-      return 'Shot';
+      return t('bus_game.shot');
     }
-    const title = (numberOfBusCards.length + 1) % 2 === 1 ? 'Drink' : 'Send';
+    const title =
+      (numberOfBusCards.length + 1) % 2 === 1
+        ? t('bus_game.drink')
+        : t('bus_game.send');
     const number = Math.ceil((numberOfBusCards.length + 1) / 2);
     return title + ' ' + number.toString();
   }
@@ -98,9 +104,10 @@ export const Bus = () => {
       <Portal>
         <Modalize ref={modalizeCard} adjustToContentHeight={true}>
           <View style={[margins.m4, margins.mb9]}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-              {formButtonTitle()}
-            </Text>
+            <Text
+              text={formButtonTitle()}
+              style={{ fontWeight: 'bold', fontSize: 16 }}
+            />
             <SmallCard
               style={{
                 height: 120,
@@ -118,9 +125,14 @@ export const Bus = () => {
                 filtered.length > 0 && rows * 2 === numberOfBusCards.length
               }
               onPress={() => nextCard()}>
-              <Text style={{ fontWeight: 'bold' }}>
-                {rows * 2 === numberOfBusCards.length ? 'Finish' : 'Next card'}
-              </Text>
+              <Text
+                text={
+                  rows * 2 === numberOfBusCards.length
+                    ? 'bus_game.finish'
+                    : 'bus_game.next_card'
+                }
+                style={{ fontWeight: 'bold' }}
+              />
             </Button>
           </View>
         </Modalize>
@@ -140,9 +152,9 @@ export const Bus = () => {
             <Button
               disabled={rows * 2 + 1 === numberOfBusCards.length}
               onPress={() => checkCard()}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+              <RNText style={{ fontSize: 20, fontWeight: 'bold' }}>
                 {formButtonTitle()}
-              </Text>
+              </RNText>
             </Button>
           </View>
         </FloatingBar>
@@ -150,9 +162,10 @@ export const Bus = () => {
         <FloatingBar>
           <View style={[margins.mx4]}>
             <Button onPress={() => onOpenHands()}>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                Final round
-              </Text>
+              <Text
+                text="bus_game.final_round"
+                style={{ fontSize: 20, fontWeight: 'bold' }}
+              />
             </Button>
           </View>
         </FloatingBar>

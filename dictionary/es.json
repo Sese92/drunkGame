@@ -5,13 +5,56 @@
     "j": "Jota",
     "bus": "Autobús",
     "continue": "Continuar",
+    "play_again": "Jugar otra vez",
     "languages": {
       "english": "Inglés",
       "spanish": "Español"
     },
     "game_configuration": {
       "nb_players": "Número de jugadores",
-      "nb_jokers": "Número de comodines"
+      "nb_jokers": "Número de comodines",
+      "players": "Jugadores",
+      "player": "Jugador",
+      "play": "¡Jugar!"
+    },
+    "j_game": {
+      "first_round": "Primera ronda",
+      "players": "Jotas",
+      "roll": "¡Lanza el dado!",
+      "rules": {
+        "new_rule": "Añade una nueva norma",
+        "left": "El jugador de tu izquierda bebe",
+        "right": "El jugador de tu derecha bebe",
+        "j": "Todas las jotas beben",
+        "q": "...",
+        "k": "Los jugadores de tus lados beben"
+      }
+    },
+    "bus_game": {
+      "options": {
+        "red": "Rojo",
+        "black": "Negro",
+        "up": "Arriba",
+        "down": "Abajo",
+        "same": "Igual",
+        "between": "Dentro",
+        "outside": "Fuera",
+        "different": "Diferente"
+      },
+      "next_round": "Siguiente ronda",
+      "send": "Mandas",
+      "drink": "Bebes",
+      "shot": "Chupito",
+      "all_drink": "Todos beben",
+      "nb_rows": "Número de filas",
+      "finish": "Terminar",
+      "next_card": "Siguiente carta",
+      "final_round": "Ronda final",
+      "no_cards": "Jugador sin cartas",
+      "place": "Colocar carta",
+      "to_final": "Ir a la ronda final",
+      "last_card": "Última carta antes de barajar",
+      "game_finished": "Habéis terminado el juego"
     }
   }
 }

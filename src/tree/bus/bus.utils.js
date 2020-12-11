@@ -15,26 +15,26 @@ function numberOfTheCard(card) {
 export function renderLeftButton(hand) {
   switch (hand.length) {
     case 0:
-      return 'Red';
+      return 'red';
     case 1:
-      return 'Up';
+      return 'up';
     case 2:
-      return 'Inside';
+      return 'between';
     case 3:
-      return 'Same';
+      return 'same';
   }
 }
 
 export function renderRightButton(hand) {
   switch (hand.length) {
     case 0:
-      return 'Black';
+      return 'black';
     case 1:
-      return 'Down';
+      return 'down';
     case 2:
-      return 'Outside';
+      return 'outside';
     case 3:
-      return 'Different';
+      return 'different';
   }
 }
 

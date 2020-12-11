@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   SafeAreaView,
   View,
-  Text,
+  Text as RNText,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
@@ -18,6 +18,7 @@ import {
 } from '../../features/gameConfiguration/configuration.store';
 import { selectDice, selectFirstRound } from '../../features/jota/jota.store';
 
+import { Text } from '../../ui/atoms/Text';
 import { FloatingTopBar } from '../../ui/atoms/FloatingBar';
 import { Button } from '../../ui/atoms/Button';
 import { RoundButton } from '../../ui/atoms/RoundButton';
@@ -79,22 +80,23 @@ export const Jota = () => {
   return (
     <SafeAreaView style={[flex.on, { backgroundColor: colors.tertiary }]}>
       {firstRound && (
-        <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}>
-          First round
-        </Text>
+        <Text
+          text="j_game.first_round"
+          style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center' }}
+        />
       )}
       {!firstRound && (
         <FloatingTopBar style={{ left: 'auto' }}>
           <View style={[margins.mx4]}>
             <RoundButton onPress={() => onOpenPlayers()}>
               <Text
+                text="J"
                 style={{
                   color: colors.white,
                   fontWeight: 'bold',
                   fontSize: 20,
-                }}>
-                J
-              </Text>
+                }}
+              />
             </RoundButton>
           </View>
         </FloatingTopBar>
@@ -103,15 +105,15 @@ export const Jota = () => {
         <Modalize ref={modalizeJota} adjustToContentHeight={true}>
           <View style={[margins.m5]}>
             <Text
-              style={{ textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}>
-              Jota players
-            </Text>
+              text="j_game.players"
+              style={{ textAlign: 'center', fontSize: 24, fontWeight: 'bold' }}
+            />
             {players.map((player, i) => (
               <View key={i}>
                 {player.jota && (
-                  <Text style={[margins.mt4, { fontSize: 18 }]}>
+                  <RNText style={[margins.mt4, { fontSize: 18 }]}>
                     {player.name}
-                  </Text>
+                  </RNText>
                 )}
               </View>
             ))}
@@ -126,15 +128,16 @@ export const Jota = () => {
           <View style={[flex.centerContent]}>
             <Dice dice={diceSelected} />
             {!firstRound && (
-              <Text style={[margins.mt5, { fontSize: 20 }]}>
-                {diceSelected.rule}
-              </Text>
+              <Text
+                text={'j_game.rules.' + diceSelected.rule}
+                style={[margins.mt5, { fontSize: 20 }]}
+              />
             )}
           </View>
         </TouchableWithoutFeedback>
       ) : (
         <View style={[flex.centerContent]}>
-          <Text
+          <RNText
             style={[
               {
                 textAlign: 'center',
@@ -144,7 +147,7 @@ export const Jota = () => {
               },
             ]}>
             {players[turn].name}
-          </Text>
+          </RNText>
           <View style={[margins.my8]}>
             <Button
               style={[
@@ -156,7 +159,10 @@ export const Jota = () => {
                 },
               ]}
               onPress={() => rollIt()}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Roll it!</Text>
+              <Text
+                text="j_game.roll"
+                style={{ fontSize: 18, fontWeight: 'bold' }}
+              />
             </Button>
           </View>
         </View>

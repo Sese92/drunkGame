@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text } from 'react-native';
+import { SafeAreaView, View, Text as RNText } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { Portal } from 'react-native-portalize';
@@ -14,6 +14,8 @@ import {
   selectTurn,
 } from '../../../features/gameConfiguration/configuration.store';
 import { selectCard } from '../../../features/bus/bus.store';
+
+import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 import { Card, SmallCard } from '../../../ui/atoms/Card';
 import { flex } from '../../../ui/style/layout';
@@ -104,7 +106,7 @@ export const BusElection = () => {
             flex.centerContent,
             { backgroundColor: colors.tertiary },
           ]}>
-          <Text
+          <RNText
             style={[
               margins.mb2,
               {
@@ -115,7 +117,7 @@ export const BusElection = () => {
               },
             ]}>
             {players[turn].name}
-          </Text>
+          </RNText>
           <View
             style={[
               flex.row,
@@ -160,13 +162,15 @@ export const BusElection = () => {
                   saveButtonClicked('Left');
                 }}>
                 <Text
+                  text={
+                    'bus_game.options.' + renderLeftButton(players[turn].hand)
+                  }
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
-                  {renderLeftButton(players[turn].hand)}
-                </Text>
+                  }}
+                />
               </Button>
               {players[turn].hand.length > 0 && players[turn].hand.length < 3 && (
                 <Button
@@ -176,13 +180,13 @@ export const BusElection = () => {
                     saveButtonClicked('Middle');
                   }}>
                   <Text
+                    text="bus_game.options.same"
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                    }}>
-                    Same
-                  </Text>
+                    }}
+                  />
                 </Button>
               )}
               <Button
@@ -192,13 +196,15 @@ export const BusElection = () => {
                   saveButtonClicked('Right');
                 }}>
                 <Text
+                  text={
+                    'bus_game.options.' + renderRightButton(players[turn].hand)
+                  }
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
                     textAlign: 'center',
-                  }}>
-                  {renderRightButton(players[turn].hand)}
-                </Text>
+                  }}
+                />
               </Button>
             </View>
           ) : (
@@ -214,30 +220,32 @@ export const BusElection = () => {
               {players[players.length - 1].hand.length < 4 ? (
                 <Button style={[paddings.px5]} onPress={() => nextTurn()}>
                   <Text
+                    text={
+                      successSides
+                        ? 'bus_game.send'
+                        : successMiddle
+                        ? 'bus_game.all_drink'
+                        : card.type === 'Joker'
+                        ? 'bus_game.shot'
+                        : 'bus_game.drink'
+                    }
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                    }}>
-                    {successSides
-                      ? 'Send'
-                      : successMiddle
-                      ? 'All drink'
-                      : card.type === 'Joker'
-                      ? 'Shot!'
-                      : 'Drink'}
-                  </Text>
+                    }}
+                  />
                 </Button>
               ) : (
                 <Button style={[paddings.px5]} onPress={() => onOpen()}>
                   <Text
+                    text="bus_game.next_round"
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
                       textAlign: 'center',
-                    }}>
-                    Next round
-                  </Text>
+                    }}
+                  />
                 </Button>
               )}
             </View>

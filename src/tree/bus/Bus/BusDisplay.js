@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { selectBusCards } from '../../../features/bus/bus.store';
 
+import { Text } from '../../../ui/atoms/Text';
 import { SmallCard } from '../../../ui/atoms/Card';
 import { margins } from '../../../ui/style/spacing';
 
@@ -27,9 +28,10 @@ export const BusDisplay = () => {
             alignItems: 'center',
             width: '30%',
           }}>
-          <Text style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}>
-            Drink
-          </Text>
+          <Text
+            text="bus_game.drink"
+            style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}
+          />
           {busCards.map(
             (card, i) =>
               i % 2 === 0 &&
@@ -48,9 +50,10 @@ export const BusDisplay = () => {
           )}
         </View>
         <View style={{ alignItems: 'center', width: '30%' }}>
-          <Text style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}>
-            Send
-          </Text>
+          <Text
+            text="bus_game.send"
+            style={[margins.my3, { fontWeight: 'bold', fontSize: 22 }]}
+          />
           {busCards.map(
             (card, i) =>
               i % 2 !== 0 && (
