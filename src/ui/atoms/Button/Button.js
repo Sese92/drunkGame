@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TouchableHighlight, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
 
 import { useTheme } from '@react-navigation/native';
 
@@ -22,8 +22,8 @@ export const Button = ({
   const { colors } = useTheme();
 
   return (
-    <TouchableHighlight
-      activeOpacity={0.85}
+    <TouchableOpacity
+      activeOpacity={0.75}
       underlayColor={underlayColor || 'none'}
       onPress={() => !disabled && onPress && onPress()}
       style={[
@@ -48,6 +48,6 @@ export const Button = ({
           {RightElement && <View style={[margins.ml2]}>{RightElement}</View>}
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };

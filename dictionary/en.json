@@ -8,7 +8,8 @@
     "play_again": "Play again",
     "languages": {
       "english": "English",
-      "spanish": "Spanish"
+      "spanish": "Spanish",
+      "ukrainian": "Ukrainian"
     },
     "game_configuration": {
       "nb_players": "Number of players",

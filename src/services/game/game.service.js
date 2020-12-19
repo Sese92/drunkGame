@@ -11,10 +11,11 @@ export const selectGame = ({ game }) => ({
   },
 });
 
-export const setNumberOfPlayers = ({ numberOfPlayers }) => ({
+export const setNumberOfPlayers = ({ numberOfPlayers, playersName }) => ({
   type: SET_NUMBER_PLAYERS,
   meta: {
     numberOfPlayers,
+    playersName,
   },
 });
 

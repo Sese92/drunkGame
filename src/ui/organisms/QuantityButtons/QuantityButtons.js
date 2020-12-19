@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@react-navigation/native';
 
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { RoundButton } from '../../atoms/RoundButton';
 import { IconMinus } from '../../zicons/Minus';
@@ -25,18 +25,16 @@ export const QuantityButtons = ({
         padding: 1,
         alignSelf: 'flex-start',
       }}>
-      <TouchableOpacity>
-        <RoundButton
-          disabled={value <= min}
-          onPress={subQuantity}
-          bgColor={colors.info}
-          borderColor={colors.primary}>
-          <IconMinus
-            width={24}
-            height={24}
-            iconLineColor={colors.primary}></IconMinus>
-        </RoundButton>
-      </TouchableOpacity>
+      <RoundButton
+        disabled={value <= min}
+        onPress={subQuantity}
+        bgColor={colors.info}
+        borderColor={colors.primary}>
+        <IconMinus
+          width={24}
+          height={24}
+          iconLineColor={colors.primary}></IconMinus>
+      </RoundButton>
 
       {/* <TextInput
         value={value}
@@ -64,17 +62,15 @@ export const QuantityButtons = ({
         {value}
       </Text>
 
-      <TouchableOpacity>
-        <RoundButton
-          disabled={value >= max}
-          onPress={addQuantity}
-          bgColor={colors.info}>
-          <IconPlus
-            width={24}
-            height={24}
-            iconLineColor={colors.black}></IconPlus>
-        </RoundButton>
-      </TouchableOpacity>
+      <RoundButton
+        disabled={value >= max}
+        onPress={addQuantity}
+        bgColor={colors.info}>
+        <IconPlus
+          width={24}
+          height={24}
+          iconLineColor={colors.black}></IconPlus>
+      </RoundButton>
     </View>
   );
 };

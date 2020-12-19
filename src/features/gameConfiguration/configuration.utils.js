@@ -1,12 +1,12 @@
-export function setPlayers(number, game) {
+export function setPlayers(number, game, playerName) {
   const arrayOfPlayers = [];
   if (game === 'Jota') {
     for (let i = 0; i < number; i++) {
-      arrayOfPlayers.push({ name: 'Player ' + (i + 1), jota: false });
+      arrayOfPlayers.push({ name: playerName + ' ' + (i + 1), jota: false });
     }
   } else if (game === 'Bus') {
     for (let i = 0; i < number; i++) {
-      arrayOfPlayers.push({ name: 'Player ' + (i + 1), hand: [] });
+      arrayOfPlayers.push({ name: playerName + ' ' + (i + 1), hand: [] });
     }
   }
   return arrayOfPlayers;

@@ -57,7 +57,10 @@ export const Jota = () => {
     } else {
       let anyJota = false;
       for (let i = 0; i < players.length; i++) {
-        if (players[i].jota === true) {
+        if (
+          players[i].jota === true ||
+          (firstRound && diceSelected.number === 'J')
+        ) {
           anyJota = true;
         }
       }
@@ -121,20 +124,22 @@ export const Jota = () => {
         </Modalize>
       </Portal>
       {resultsScreen ? (
-        <TouchableWithoutFeedback
-          onPress={() => {
-            setNextTurn(), saveResultsScreen(false);
-          }}>
-          <View style={[flex.centerContent]}>
-            <Dice dice={diceSelected} />
-            {!firstRound && (
-              <Text
-                text={'j_game.rules.' + diceSelected.rule}
-                style={[margins.mt5, { fontSize: 20 }]}
-              />
-            )}
-          </View>
-        </TouchableWithoutFeedback>
+        <View style={[flex.centerContent]}>
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setNextTurn(), saveResultsScreen(false);
+            }}>
+            <View style={{ padding: 40 }}>
+              <Dice dice={diceSelected} />
+            </View>
+          </TouchableWithoutFeedback>
+          {!firstRound && (
+            <Text
+              text={'j_game.rules.' + diceSelected.rule}
+              style={[margins.mt5, { fontSize: 20 }]}
+            />
+          )}
+        </View>
       ) : (
         <View style={[flex.centerContent]}>
           <RNText

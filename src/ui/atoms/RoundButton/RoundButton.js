@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme } from '@react-navigation/native';
-import { StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import { flex } from '../../style/layout';
 
@@ -18,7 +17,8 @@ export const RoundButton = ({
 }) => {
   const { colors } = useTheme();
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
+      activeOpacity={0.6}
       disabled={disabled}
       style={[
         {
@@ -36,7 +36,7 @@ export const RoundButton = ({
       <View style={[flex.centerContent, alignementStyle[alignement]]}>
         {children}
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

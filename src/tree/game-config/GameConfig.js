@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
@@ -9,6 +10,7 @@ import { Modalize } from 'react-native-modalize';
 import { selectGame } from '../../features/gameConfiguration/configuration.store';
 import { setNumberOfPlayers } from '../../services/game/game.service';
 import { setNumberOfJokers } from '../../services/bus/bus.service';
+import { startJotaGame } from '../../services/jota/jota.service';
 import { flex } from '../../ui/style/layout';
 import { margins } from '../../ui/style/spacing';
 import { QuantityButtons } from '../../ui/organisms/QuantityButtons';
@@ -25,11 +27,17 @@ export const GameConfig = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const modalizeNames = useRef(null);
 
   function nextScreen() {
-    dispatch(setNumberOfPlayers({ numberOfPlayers: players }));
+    dispatch(
+      setNumberOfPlayers({
+        numberOfPlayers: players,
+        playersName: t('game_configuration.player'),
+      })
+    );
     openPlayersNames();
   }
 
@@ -47,6 +55,7 @@ export const GameConfig = () => {
       dispatch(setNumberOfJokers({ jokers: jokers }));
       navigation.navigate('Bus');
     } else {
+      dispatch(startJotaGame());
       navigation.navigate('Jota');
     }
   }

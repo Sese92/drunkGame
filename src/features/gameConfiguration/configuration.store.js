@@ -44,7 +44,11 @@ const configurationSlice = createSlice({
     [SET_NUMBER_PLAYERS]: (state, action) => {
       return {
         ...state,
-        players: setPlayers(action.meta.numberOfPlayers, state.game),
+        players: setPlayers(
+          action.meta.numberOfPlayers,
+          state.game,
+          action.meta.playersName
+        ),
       };
     },
     [SET_NAMES]: (state, action) => {

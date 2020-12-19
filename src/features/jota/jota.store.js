@@ -3,7 +3,10 @@ import { createSelector } from 'reselect';
 
 import { dice } from './jota.utils';
 
-import { FINISH_FIRST_ROUND } from '../../services/jota/jota.service';
+import {
+  FINISH_FIRST_ROUND,
+  START_THE_GAME,
+} from '../../services/jota/jota.service';
 
 export const initialState = {
   dice: dice,
@@ -14,6 +17,12 @@ const jotaSlice = createSlice({
   name: 'jota',
   initialState,
   extraReducers: {
+    [START_THE_GAME]: (state) => {
+      return {
+        ...state,
+        firstRound: true,
+      };
+    },
     [FINISH_FIRST_ROUND]: (state) => {
       return {
         ...state,
