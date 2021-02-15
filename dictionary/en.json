@@ -5,6 +5,7 @@
     "j": "J",
     "bus": "Bus game",
     "continue": "Continue",
+    "cancel": "Cancel",
     "play_again": "Play again",
     "languages": {
       "english": "English",
@@ -50,6 +51,8 @@
       "nb_rows": "Number of rows",
       "finish": "Finish",
       "next_card": "Next card",
+      "title": "There are players with cards",
+      "info": "Are you sure you want to go to the next card?",
       "final_round": "Final Round",
       "no_cards": "Player without cards",
       "place": "Place card",

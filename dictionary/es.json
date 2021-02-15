@@ -50,6 +50,8 @@
       "nb_rows": "Número de filas",
       "finish": "Terminar",
       "next_card": "Siguiente carta",
+      "title": "Todavía hay jugadores con cartas",
+      "info": "¿Deseas continuar?",
       "final_round": "Ronda final",
       "no_cards": "Jugador sin cartas",
       "place": "Colocar carta",

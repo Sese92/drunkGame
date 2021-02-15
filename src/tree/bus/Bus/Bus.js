@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { SafeAreaView, View, Text as RNText } from 'react-native';
+import { SafeAreaView, View, Text as RNText, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +66,22 @@ export const Bus = () => {
   }
 
   function nextCard() {
-    onCloseCard();
+    if (filtered.length > 0) {
+      Alert.alert(t('bus_game.title'), t('bus_game.info'), [
+        {
+          text: t('cancel'),
+        },
+        {
+          text: t('continue'),
+          onPress: () => {
+            onCloseCard();
+          },
+          style: 'cancel',
+        },
+      ]);
+    } else {
+      onCloseCard();
+    }
   }
 
   function formButtonTitle(displayJoker) {
