@@ -69,8 +69,11 @@ export const Bus = () => {
     onCloseCard();
   }
 
-  function formButtonTitle() {
-    if (rows * 2 === numberOfBusCards.length || card.type === 'Joker') {
+  function formButtonTitle(displayJoker) {
+    if (
+      rows * 2 === numberOfBusCards.length ||
+      (card.type === 'Joker' && displayJoker)
+    ) {
       return t('bus_game.shot');
     }
     const title =
@@ -105,7 +108,7 @@ export const Bus = () => {
         <Modalize ref={modalizeCard} adjustToContentHeight={true}>
           <View style={[margins.m4, margins.mb9]}>
             <Text
-              text={formButtonTitle()}
+              text={formButtonTitle(true)}
               style={{ fontWeight: 'bold', fontSize: 16 }}
             />
             <SmallCard
@@ -153,7 +156,7 @@ export const Bus = () => {
               disabled={rows * 2 + 1 === numberOfBusCards.length}
               onPress={() => checkCard()}>
               <RNText style={{ fontSize: 20, fontWeight: 'bold' }}>
-                {formButtonTitle()}
+                {formButtonTitle(false)}
               </RNText>
             </Button>
           </View>
