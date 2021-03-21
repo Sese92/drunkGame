@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectNumberOfCards } from '../../../features/bus/bus.store';
-import { setNumberOfRows, removeCard } from '../../../services/bus/bus.service';
+import { setNumberOfRows } from '../../../services/bus/bus.service';
 
 import { QuantityButtons } from '../../../ui/organisms/QuantityButtons';
 
@@ -12,14 +12,13 @@ import { margins } from '../../../ui/style/spacing';
 import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 
-export const RowsModal = ({ navigation, onClose, lastCard }) => {
+export const RowsModal = ({ navigation, onClose }) => {
   const [localRows, saveRows] = useState(1);
   const dispatch = useDispatch();
   const numberOfCardsRemain = useSelector(selectNumberOfCards);
 
   function nextScreen() {
     dispatch(setNumberOfRows({ rows: localRows }));
-    dispatch(removeCard({ card: lastCard }));
 
     onClose();
     navigation.navigate('Bus');

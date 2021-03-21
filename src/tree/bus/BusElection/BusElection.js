@@ -265,11 +265,7 @@ export const BusElection = () => {
           )}
           <Portal>
             <Modalize ref={modalizeRef} adjustToContentHeight={true}>
-              <RowsModal
-                lastCard={card}
-                navigation={navigation}
-                onClose={() => onClose()}
-              />
+              <RowsModal navigation={navigation} onClose={() => onClose()} />
             </Modalize>
           </Portal>
           <FloatingTopBar style={{ left: 'auto' }}>
