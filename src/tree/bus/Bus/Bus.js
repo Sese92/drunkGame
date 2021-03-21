@@ -9,7 +9,7 @@ import { Modalize } from 'react-native-modalize';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { FloatingBar } from '../../../ui/atoms/FloatingBar';
+import { FloatingBar, FloatingTopBar } from '../../../ui/atoms/FloatingBar';
 import { PlayersHands } from './PlayersHands';
 import { BusDisplay } from './BusDisplay';
 
@@ -84,7 +84,7 @@ export const Bus = () => {
     }
   }
 
-  function formButtonTitle(displayJoker) {
+  function buildButtonTitle(displayJoker) {
     if (
       rows * 2 === numberOfBusCards.length ||
       (card.type === 'Joker' && displayJoker)
@@ -123,7 +123,7 @@ export const Bus = () => {
         <Modalize ref={modalizeCard} adjustToContentHeight={true}>
           <View style={[margins.m4, margins.mb9]}>
             <Text
-              text={formButtonTitle(true)}
+              text={buildButtonTitle(true)}
               style={{ fontWeight: 'bold', fontSize: 16 }}
             />
             <SmallCard
@@ -156,13 +156,13 @@ export const Bus = () => {
         </Modalize>
       </Portal>
 
-      <FloatingBar style={{ left: 'auto', bottom: 140 }}>
+      <FloatingTopBar style={{ left: 'auto' }}>
         <View style={[margins.mx4]}>
           <RoundButton onPress={() => onOpenHands()}>
             <Icon name="cards" size={23} color={colors.info} />
           </RoundButton>
         </View>
-      </FloatingBar>
+      </FloatingTopBar>
 
       {rows * 2 + 1 > numberOfBusCards.length ? (
         <FloatingBar>
@@ -171,7 +171,7 @@ export const Bus = () => {
               disabled={rows * 2 + 1 === numberOfBusCards.length}
               onPress={() => checkCard()}>
               <RNText style={{ fontSize: 20, fontWeight: 'bold' }}>
-                {formButtonTitle(false)}
+                {buildButtonTitle(false)}
               </RNText>
             </Button>
           </View>

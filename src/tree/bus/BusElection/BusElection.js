@@ -5,6 +5,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 
 import { Portal } from 'react-native-portalize';
 import { Modalize } from 'react-native-modalize';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { RowsModal } from './RowsModal';
 import { setTurn } from '../../../services/game/game.service';
@@ -18,6 +19,10 @@ import { selectCard } from '../../../features/bus/bus.store';
 import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
 import { Card, SmallCard } from '../../../ui/atoms/Card';
+import { FloatingTopBar } from '../../../ui/atoms/FloatingBar';
+import { RoundButton } from '../../../ui/atoms/RoundButton';
+import { PlayersHands } from '../Bus/PlayersHands';
+
 import { flex } from '../../../ui/style/layout';
 import { margins, paddings } from '../../../ui/style/spacing';
 
@@ -43,10 +48,16 @@ export const BusElection = () => {
   const [flipCard, saveFlipCard] = useState(false);
   const [buttonClicked, saveButtonClicked] = useState('');
 
+  const modalizeHands = useRef(null);
+
   useEffect(() => {
     dispatch(setTurn({ turn: 0 }));
     saveFlipCard(false);
   }, []);
+
+  const onOpenHands = () => {
+    modalizeHands.current?.open();
+  };
 
   var successSides =
     players.length > 0 &&
@@ -79,9 +90,11 @@ export const BusElection = () => {
         if (card.type !== 'Joker') {
           saveFlipCard(false);
           dispatch(setPlayerHand({ player: players[turn], card: card }));
+          dispatch(removeCard({ card: card }));
           onOpen();
         } else {
           saveFlipCard(false);
+          dispatch(removeCard({ card: card }));
         }
       } else if (players[players.length - 1].hand.length < 3) {
         saveFlipCard(false);
@@ -257,6 +270,18 @@ export const BusElection = () => {
                 navigation={navigation}
                 onClose={() => onClose()}
               />
+            </Modalize>
+          </Portal>
+          <FloatingTopBar style={{ left: 'auto' }}>
+            <View style={[margins.mx4]}>
+              <RoundButton onPress={() => onOpenHands()}>
+                <Icon name="cards" size={23} color={colors.info} />
+              </RoundButton>
+            </View>
+          </FloatingTopBar>
+          <Portal>
+            <Modalize ref={modalizeHands} adjustToContentHeight={true}>
+              <PlayersHands />
             </Modalize>
           </Portal>
         </SafeAreaView>
