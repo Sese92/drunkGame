@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Portal } from 'react-native-portalize';
 
 import { SafeAreaView, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -11,6 +12,7 @@ import { selectGame } from '../services/game/game.service';
 
 import { Button } from '../ui/atoms/Button';
 import { Text } from '../ui/atoms/Text';
+import { SplashScreen } from './../ui/organisms/SplashScreen';
 
 import { flex } from '../ui/style/layout';
 import { margins, paddings } from '../ui/style/spacing';
@@ -23,6 +25,8 @@ export const Main = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <SafeAreaView
       style={[
@@ -30,6 +34,11 @@ export const Main = () => {
         paddings.p5,
         { backgroundColor: colors.primary },
       ]}>
+      {showSplash && (
+        <Portal>
+          <SplashScreen onAfterReady={() => setShowSplash(false)} />
+        </Portal>
+      )}
       <DropDownPicker
         activeLabelStyle={{ color: colors.primary }}
         labelStyle={{ color: colors.gray }}
