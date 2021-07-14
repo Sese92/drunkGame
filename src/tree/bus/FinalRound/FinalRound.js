@@ -242,13 +242,25 @@ export const FinalRound = () => {
           ]}>
           <Text
             text="bus_game.game_finished"
-            style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}
+            style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 50 }}
           />
           <Button
-            style={[paddings.px3]}
-            onPress={() => navigation.navigate('Main')}>
+            style={[paddings.px3, margins.mb6]}
+            onPress={() => navigation.navigate('BusElection')}>
             <Text
               text="play_again"
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            />
+          </Button>
+          <Button
+            style={[paddings.px3, margins.mt6]}
+            onPress={() => navigation.navigate('Main')}>
+            <Text
+              text="main_menu"
               style={{
                 fontSize: 20,
                 fontWeight: 'bold',
