@@ -52,6 +52,9 @@ export const Jota = () => {
     if (diceSelected.number === 'J' && firstRound) {
       dispatch(setPlayerAsJota({ player: players[turn] }));
     }
+    if (diceSelected.number === 'J' && !firstRound) {
+      return;
+    }
     if (turn < players.length - 1) {
       dispatch(setTurn({ turn: turn + 1 }));
     } else {
@@ -125,18 +128,31 @@ export const Jota = () => {
       </Portal>
       {resultsScreen ? (
         <View style={[flex.centerContent]}>
+          <View>
+            <RNText
+              style={[
+                {
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  fontSize: 45,
+                  fontStyle: 'italic',
+                },
+              ]}>
+              {players[turn].name}
+            </RNText>
+          </View>
           <TouchableWithoutFeedback
             onPress={() => {
               setNextTurn(), saveResultsScreen(false);
             }}>
-            <View style={{ padding: 40 }}>
+            <View style={{ padding: 30 }}>
               <Dice dice={diceSelected} />
             </View>
           </TouchableWithoutFeedback>
           {!firstRound && (
             <Text
               text={'j_game.rules.' + diceSelected.rule}
-              style={[margins.mt5, { fontSize: 20 }]}
+              style={[margins.mt5, { fontSize: 30 }]}
             />
           )}
         </View>
