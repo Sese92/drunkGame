@@ -15,6 +15,7 @@
     "game_configuration": {
       "nb_players": "Number of players",
       "nb_jokers": "Number of jokers",
+      "nb_decks": "Number of decks",
       "players": "Players",
       "player": "Player",
       "play": "Play now!"

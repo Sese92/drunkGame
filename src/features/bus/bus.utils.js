@@ -6,6 +6,18 @@ export function numberOfCards(cards) {
   return numberOfCards;
 }
 
+const repeatDeck = (arr, repeats) =>
+  Array.from({ length: repeats }, () => arr).flat();
+
+export function buildDeck(decks, jokers) {
+  let cards = repeatDeck(allCards, decks);
+  console.log(cards.length);
+  if (jokers !== 0) {
+    return [...cards, ...setJokers(jokers)];
+  }
+  return cards;
+}
+
 export function setJokers(number) {
   let jokers = [];
   for (let i = 0; i < number; i++) {
@@ -22,17 +34,19 @@ export function selectRandomCard(cards) {
 export function removeCard(cards, card, numberOfJokers) {
   const string = JSON.stringify(cards);
   const goodCards = JSON.parse(string);
-  var filtered = [];
   if (card.type !== 'Joker') {
-    filtered = goodCards.filter(
-      (c) => c.type !== card.type || c.number !== card.number
+    let cardSelected = goodCards.find(
+      (c) => c.type === card.type && c.number === card.number
     );
+    let index = goodCards.indexOf(cardSelected);
+    if (index > -1) {
+      goodCards.splice(index, 1);
+    }
   } else {
     goodCards.pop();
-    filtered = goodCards;
   }
-  if (filtered.length > 0) {
-    return filtered;
+  if (goodCards.length > 0) {
+    return goodCards;
   } else {
     for (let i = 0; i < numberOfJokers; i++) {
       allCards.push({ type: 'Joker', number: 'Joker' });

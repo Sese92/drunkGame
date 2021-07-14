@@ -3,14 +3,14 @@ import { createSelector } from 'reselect';
 
 import {
   SET_NUMBER_ROWS,
-  SET_NUMBER_JOKERS,
+  SET_NUMBER_DECKS_JOKERS,
   REMOVE_CARD,
   FLIP_CARD,
   FINAL_ROUND,
 } from '../../services/bus/bus.service';
 
 import {
-  setJokers,
+  buildDeck,
   selectRandomCard,
   removeCard,
   setBusCard,
@@ -30,14 +30,12 @@ const busSlice = createSlice({
   name: 'bus',
   initialState,
   extraReducers: {
-    [SET_NUMBER_JOKERS]: (state, action) => {
+    [SET_NUMBER_DECKS_JOKERS]: (state, action) => {
       return {
         ...state,
-        cards:
-          action.meta.jokers !== 0
-            ? [...allCards, ...setJokers(action.meta.jokers)]
-            : allCards,
+        cards: buildDeck(action.meta.decks, action.meta.jokers),
         jokers: action.meta.jokers,
+        decks: action.meta.decks,
       };
     },
     [SET_NUMBER_ROWS]: (state, action) => {
@@ -63,10 +61,7 @@ const busSlice = createSlice({
     [FINAL_ROUND]: (state) => {
       return {
         ...state,
-        cards:
-          state.jokers !== 0
-            ? [...allCards, ...setJokers(state.jokers)]
-            : allCards,
+        cards: buildDeck(state.decks, state.jokers),
         busCards: [],
       };
     },

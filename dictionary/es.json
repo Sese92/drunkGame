@@ -14,6 +14,7 @@
     "game_configuration": {
       "nb_players": "Número de jugadores",
       "nb_jokers": "Número de comodines",
+      "nb_decks": "Número de barajas",
       "players": "Jugadores",
       "player": "Jugador",
       "play": "¡Jugar!"

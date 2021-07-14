@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View, Platform } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { Modalize } from 'react-native-modalize';
 
 import { selectGame } from '../../features/gameConfiguration/configuration.store';
 import { setNumberOfPlayers } from '../../services/game/game.service';
-import { setNumberOfJokers } from '../../services/bus/bus.service';
+import { setNumberOfJokersAndDecks } from '../../services/bus/bus.service';
 import { startJotaGame } from '../../services/jota/jota.service';
 import { flex } from '../../ui/style/layout';
 import { margins } from '../../ui/style/spacing';
@@ -24,10 +24,19 @@ export const GameConfig = () => {
   const game = useSelector(selectGame);
   const [players, savePlayers] = useState(1);
   const [jokers, saveJokers] = useState(0);
+  const [decks, saveDecks] = useState(1);
+  const [mindecks, saveMinDecks] = useState(1);
   const { colors } = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (players * 4 >= decks * 54) {
+      saveMinDecks(decks + 1);
+      saveDecks(decks + 1);
+    }
+  }, [players]);
 
   const modalizeNames = useRef(null);
 
@@ -52,7 +61,7 @@ export const GameConfig = () => {
   function continueToGame() {
     closePlayersNames();
     if (game === 'Bus') {
-      dispatch(setNumberOfJokers({ jokers: jokers }));
+      dispatch(setNumberOfJokersAndDecks({ decks: decks, jokers: jokers }));
       navigation.navigate('Bus');
     } else {
       dispatch(startJotaGame());
@@ -120,6 +129,24 @@ export const GameConfig = () => {
                 addQuantity={() => saveJokers(jokers + 1)}
                 subQuantity={() => saveJokers(jokers - 1)}
                 value={jokers.toString()}
+              />
+            </View>
+          </View>
+          <View style={[margins.mt8]}>
+            <Text
+              text="game_configuration.nb_decks"
+              style={[
+                margins.mb3,
+                { textAlign: 'center', fontSize: 18, fontWeight: 'bold' },
+              ]}
+            />
+
+            <View style={{ alignSelf: 'center' }}>
+              <QuantityButtons
+                min={mindecks}
+                addQuantity={() => saveDecks(decks + 1)}
+                subQuantity={() => saveDecks(decks - 1)}
+                value={decks.toString()}
               />
             </View>
           </View>

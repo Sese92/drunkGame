@@ -1,4 +1,4 @@
-export const SET_NUMBER_JOKERS = 'SET_NUMBER_JOKERS';
+export const SET_NUMBER_DECKS_JOKERS = 'SET_NUMBER_DECKS_JOKERS';
 export const SET_NUMBER_ROWS = 'SET_NUMBER_ROWS';
 export const SET_PLAYER_HAND = 'SET_PLAYER_HAND';
 export const REMOVE_CARD = 'REMOVE_CARD';
@@ -8,9 +8,10 @@ export const FINAL_ROUND = 'FINAL_ROUND';
 export const CLEAR_PLAYER_HAND = 'CLEAR_PLAYER_HAND';
 export const REMOVE_PLAYER = 'REMOVE_PLAYER';
 
-export const setNumberOfJokers = ({ jokers }) => ({
-  type: SET_NUMBER_JOKERS,
+export const setNumberOfJokersAndDecks = ({ decks, jokers }) => ({
+  type: SET_NUMBER_DECKS_JOKERS,
   meta: {
+    decks,
     jokers,
   },
 });
