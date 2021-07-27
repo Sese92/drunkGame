@@ -29,6 +29,7 @@ export const initialState = {
   game: '',
   players: [],
   turn: 0,
+  initialPlayers: [],
 };
 
 const configurationSlice = createSlice({
@@ -49,12 +50,21 @@ const configurationSlice = createSlice({
           state.game,
           action.meta.playersName
         ),
+        initialPlayers: setPlayers(
+          action.meta.numberOfPlayers,
+          state.game,
+          action.meta.playersName
+        ),
       };
     },
     [SET_NAMES]: (state, action) => {
       return {
         ...state,
         players: setPlayersNames(state.players, action.meta.names),
+        initialPlayers: setPlayersNames(
+          state.initialPlayers,
+          action.meta.names
+        ),
       };
     },
     [SET_TURN]: (state, action) => {
@@ -123,6 +133,11 @@ const selectPlayers = createSelector(
   (configuration) => configuration.players
 );
 
+const selectInitialPlayers = createSelector(
+  selectRoot,
+  (configuration) => configuration.initialPlayers
+);
+
 const selectNumberOfPlayers = createSelector(
   selectRoot,
   (configuration) => configuration.players.length
@@ -143,6 +158,7 @@ export {
   selectNumberOfPlayers,
   selectTurn,
   selectFinalPlayers,
+  selectInitialPlayers,
 };
 
 export const { actions, reducer } = configurationSlice;

@@ -11,7 +11,6 @@ const repeatDeck = (arr, repeats) =>
 
 export function buildDeck(decks, jokers) {
   let cards = repeatDeck(allCards, decks);
-  console.log(cards.length);
   if (jokers !== 0) {
     return [...cards, ...setJokers(jokers)];
   }

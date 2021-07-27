@@ -74,6 +74,10 @@ const selectConfigRoot = (state) => state.configuration;
 
 const selectNumberOfRows = createSelector(selectRoot, (bus) => bus.rows);
 
+const selectDecks = createSelector(selectRoot, (bus) => bus.decks);
+
+const selectJokers = createSelector(selectRoot, (bus) => bus.jokers);
+
 const selectNumberOfCards = createSelector(selectRoot, (bus) =>
   numberOfCards(bus.cards)
 );
@@ -96,6 +100,8 @@ export {
   selectBusCards,
   selectPlayersFiltered,
   selectNumberOfCards,
+  selectDecks,
+  selectJokers,
 };
 
 export const { actions, reducer } = busSlice;

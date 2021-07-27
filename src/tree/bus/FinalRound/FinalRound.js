@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView, View, Text as RNText } from 'react-native';
 import { useTheme, useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import {
   clearPlayerHand,
@@ -9,15 +10,24 @@ import {
   setPlayerHand,
   removePlayer,
   finalRound,
+  setNumberOfJokersAndDecks,
 } from '../../../services/bus/bus.service';
-import { setTurn } from '../../../services/game/game.service';
+import {
+  setTurn,
+  setNames,
+  setNumberOfPlayers,
+} from '../../../services/game/game.service';
+
 import {
   selectTurn,
   selectPlayers,
+  selectInitialPlayers,
 } from '../../../features/gameConfiguration/configuration.store';
 import {
   selectCard,
   selectNumberOfCards,
+  selectDecks,
+  selectJokers,
 } from '../../../features/bus/bus.store';
 import { Text } from '../../../ui/atoms/Text';
 import { Button } from '../../../ui/atoms/Button';
@@ -38,10 +48,14 @@ export const FinalRound = () => {
 
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const card = useSelector(selectCard);
   const players = useSelector(selectPlayers);
   const turn = useSelector(selectTurn);
+  const initialPlayers = useSelector(selectInitialPlayers);
+  const decks = useSelector(selectDecks);
+  const jokers = useSelector(selectJokers);
 
   const numberOfCards = useSelector(selectNumberOfCards);
   const [flipCard, saveFlipCard] = useState(false);
@@ -88,6 +102,20 @@ export const FinalRound = () => {
         }
       }
     }
+  }
+
+  function playAgain() {
+    dispatch(
+      setNumberOfPlayers({
+        numberOfPlayers: initialPlayers.length,
+        playersName: t('game_configuration.player'),
+      })
+    );
+    let names = [];
+    initialPlayers.map((player) => names.push(player.name));
+    dispatch(setNames({ names: names }));
+    dispatch(setNumberOfJokersAndDecks({ decks: decks, jokers: jokers }));
+    navigation.navigate('BusElection');
   }
 
   return (
@@ -246,7 +274,7 @@ export const FinalRound = () => {
           />
           <Button
             style={[paddings.px3, margins.mb6]}
-            onPress={() => navigation.navigate('BusElection')}>
+            onPress={() => playAgain()}>
             <Text
               text="play_again"
               style={{
